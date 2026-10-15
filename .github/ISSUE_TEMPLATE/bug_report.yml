@@ -1,0 +1,31 @@
+name: Bug report
+description: Report something that does not work as expected
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform / device
+      placeholder: "e.g. Android 15 emulator, Chrome, iPhone 16"

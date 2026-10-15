@@ -1,0 +1,4 @@
+# Changes to CI, repository rules and tooling are automatically sent to the
+# repository owner for review.
+/.github/   @NikodemJachec99
+/scripts/   @NikodemJachec99

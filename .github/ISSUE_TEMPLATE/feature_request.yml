@@ -1,0 +1,26 @@
+name: Feature / user story
+description: Propose a new feature or user story
+labels: ["feature"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: User story
+      description: "As a <type of user>, I want <goal> so that <reason>."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Conditions that must be met for this to be considered done.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Designs, links, technical notes.
