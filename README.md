@@ -1,5 +1,7 @@
 # Fast Reading Learner
 
+[![CI](https://github.com/NikodemJachec99/Fast-Reading-Learner/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NikodemJachec99/Fast-Reading-Learner/actions/workflows/ci.yml)
+
 A Flutter app for learning and practising speed reading, built as a
 Software Engineering team project.
 
