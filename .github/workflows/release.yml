@@ -1,19 +1,30 @@
 name: Release
 
-# Creates a GitHub Release with an Android APK and a zipped web build
-# whenever a version tag is pushed, e.g.:
-#   git tag v0.1.0 && git push origin v0.1.0
-# Tags containing a hyphen (v0.2.0-beta.1) are published as pre-releases.
+# Creates a GitHub Release with an Android APK and a zipped web build.
+# Start it in one of two ways:
+#   - GitHub: Actions → Release → Run workflow, enter a version (e.g. v0.1.0).
+#     The tag is created on the latest commit of main.
+#   - Git: git tag v0.1.0 && git push origin v0.1.0
+# Versions containing a hyphen (v0.2.0-beta.1) are published as pre-releases.
 
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. v0.1.0 (a new tag is created on main)"
+        required: true
+        type: string
 
 permissions:
   contents: read
 
+env:
+  TAG: ${{ inputs.version || github.ref_name }}
+
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.version || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -23,6 +34,23 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
+
+      - name: Validate version
+        run: |
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$TAG' is not a valid version. Use the format v1.2.3 or v1.2.3-beta.1."
+            exit 1
+          fi
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+              echo "::error::Releases can only be created from main."
+              exit 1
+            fi
+            if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null; then
+              echo "::error::Tag $TAG already exists. Choose a new version."
+              exit 1
+            fi
+          fi
 
       - uses: ./.github/actions/setup-flutter
 
@@ -50,7 +78,7 @@ jobs:
 
       - name: Build release APK
         run: |
-          version="${GITHUB_REF_NAME#v}"
+          version="${TAG#v}"
           flutter build apk --release \
             --build-name="$version" \
             --build-number="${{ github.run_number }}"
@@ -75,7 +103,7 @@ jobs:
 
       - name: Build web app
         run: |
-          version="${GITHUB_REF_NAME#v}"
+          version="${TAG#v}"
           flutter build web --release \
             --build-name="$version" \
             --build-number="${{ github.run_number }}"
@@ -105,11 +133,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           prerelease=""
-          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+          if [[ "$TAG" == *-* ]]; then
             prerelease="--prerelease"
           fi
-          gh release create "$GITHUB_REF_NAME" dist/* \
+          # --target is only used when the tag does not exist yet (Run workflow).
+          gh release create "$TAG" dist/* \
             --repo "$GITHUB_REPOSITORY" \
-            --title "$GITHUB_REF_NAME" \
+            --target "$GITHUB_SHA" \
+            --title "$TAG" \
             --generate-notes \
             $prerelease
