@@ -1,0 +1,115 @@
+name: Release
+
+# Creates a GitHub Release with an Android APK and a zipped web build
+# whenever a version tag is pushed, e.g.:
+#   git tag v0.1.0 && git push origin v0.1.0
+# Tags containing a hyphen (v0.2.0-beta.1) are published as pre-releases.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Analyze & test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Analyze
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run tests
+        run: flutter test
+
+  build-android:
+    name: Build Android APK
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Build release APK
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          flutter build apk --release \
+            --build-name="$version" \
+            --build-number="${{ github.run_number }}"
+          mv build/app/outputs/flutter-apk/app-release.apk \
+            "fast-reading-learner-$version.apk"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: android
+          path: fast-reading-learner-*.apk
+          if-no-files-found: error
+
+  build-web:
+    name: Build web
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Build web app
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          flutter build web --release \
+            --build-name="$version" \
+            --build-number="${{ github.run_number }}"
+          (cd build/web && zip -qr "$GITHUB_WORKSPACE/fast-reading-learner-web-$version.zip" .)
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: web
+          path: fast-reading-learner-web-*.zip
+          if-no-files-found: error
+
+  publish:
+    name: Publish release
+    needs: [build-android, build-web]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            prerelease="--prerelease"
+          fi
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            $prerelease

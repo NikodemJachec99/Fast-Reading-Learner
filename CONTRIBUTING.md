@@ -75,6 +75,12 @@ flutter test --coverage
   feature's own non-widget classes) so it can be unit-tested.
 - Public classes and methods should have a short `///` doc comment.
 
+## Architecture decisions
+
+Decisions that affect the whole team (state management, database, project
+structure, major dependencies) are written down as ADRs in `docs/adr/`.
+See [docs/adr/README.md](docs/adr/README.md) for when and how to write one.
+
 ## Code review
 
 As an **author**:
