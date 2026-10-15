@@ -15,28 +15,20 @@ permissions:
   contents: read
 
 env:
-  # Keep in sync with the Flutter version in README.md.
-  FLUTTER_VERSION: "3.47.7"
   MIN_COVERAGE: "70"
 
+# Job names are used as required status checks in the branch ruleset
+# (.github/rulesets/main.json). Update both if you rename a job.
+# The Flutter version comes from .fvmrc (see .github/actions/setup-flutter).
 jobs:
   analyze-and-test:
-    # The job name is used as a required status check in the branch ruleset
-    # (.github/rulesets/main.json). Update both if you rename it.
     name: Analyze & test
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
 
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
+      - uses: ./.github/actions/setup-flutter
 
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed lib test
@@ -65,14 +57,37 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
+      - uses: ./.github/actions/setup-flutter
 
       - name: Build web app
         run: flutter build web --release
+
+  build-android:
+    name: Build (Android)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Build APK
+        run: flutter build apk --debug
+
+  build-ios:
+    name: Build (iOS)
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Build iOS app (without code signing)
+        run: flutter build ios --debug --no-codesign

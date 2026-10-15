@@ -8,8 +8,11 @@ Software Engineering team project.
 ## Requirements
 
 - [Flutter](https://docs.flutter.dev/get-started/install) **3.47.7** (stable channel, Dart 3.13).
-  CI uses this exact version, so please use the same one locally
-  (`flutter --version`).
+  The version is pinned in [`.fvmrc`](.fvmrc) and CI uses exactly that one, so
+  please use the same version locally (`flutter --version`).
+  The easiest way is [FVM](https://fvm.app) (see below).
+- For Android builds: Android Studio with the Android SDK.
+- For iOS builds: a Mac with Xcode.
 - An editor with Flutter support: VS Code (recommended extensions are suggested
   automatically) or Android Studio.
 
@@ -22,6 +25,26 @@ flutter pub get
 flutter run            # pick a device: emulator, phone or Chrome
 ```
 
+### Using FVM (recommended)
+
+[FVM](https://fvm.app/documentation/getting-started/installation) installs and
+uses the Flutter version pinned in `.fvmrc`, so everyone on the team works with
+the same SDK:
+
+```bash
+fvm install            # installs the version from .fvmrc
+fvm flutter pub get    # prefix flutter commands with `fvm`
+fvm flutter run
+```
+
+In VS Code, point the Dart extension at the FVM SDK by adding
+`"dart.flutterSdkPath": ".fvm/versions/3.47.7"` to your **user** settings
+(not the shared `.vscode/settings.json`, so it does not affect teammates
+without FVM).
+
+When upgrading Flutter, change the version in `.fvmrc` in a separate PR;
+CI picks it up automatically.
+
 ## Everyday commands
 
 | Task                    | Command                                  |
@@ -33,8 +56,8 @@ flutter run            # pick a device: emulator, phone or Chrome
 | Static analysis         | `flutter analyze`                        |
 | Format code             | `dart format lib test`                   |
 
-Run `dart format lib test && flutter analyze && flutter test` before every push;
-this is exactly what CI checks.
+Run `dart format lib test && flutter analyze && flutter test` before every push.
+CI additionally builds the app for web, Android and iOS on every pull request.
 
 ## Project structure
 
