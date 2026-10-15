@@ -16,7 +16,8 @@ This document describes how our team works on the repository.
 4. **Push and open a pull request** into `main`. Fill in the PR template and
    link the issue (`Closes #12`).
 5. **Get a review.** At least **one approval** from another team member is
-   required. CI must be green.
+   required. CI must be green: analysis, tests and builds for web, Android
+   and iOS.
 6. **Merge** with *Squash and merge* and delete the branch.
 
 Nobody can push directly to `main`. It is protected by a ruleset
