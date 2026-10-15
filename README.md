@@ -73,6 +73,29 @@ lib/
 test/                     # mirrors lib/: lib/src/x/y.dart -> test/src/x/y_test.dart
 ```
 
+## Releases
+
+Pushing a version tag builds the app and publishes a
+[GitHub Release](https://github.com/NikodemJachec99/Fast-Reading-Learner/releases)
+with an Android APK and a zipped web build:
+
+```bash
+git switch main && git pull
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Use [semantic versioning](https://semver.org/): `v0.x.y` while in
+development. A tag with a hyphen (e.g. `v0.2.0-beta.1`) is published as a
+pre-release. The APK is signed with the debug key, which is fine for demos
+and testing but not for publishing to Google Play. iOS builds are not
+attached because they require an Apple developer account for signing.
+
+## Architecture decisions
+
+Important technical decisions are documented as ADRs in
+[`docs/adr/`](docs/adr/README.md).
+
 ## Contributing
 
 All changes go through pull requests with at least one approving review.
