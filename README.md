@@ -75,15 +75,20 @@ test/                     # mirrors lib/: lib/src/x/y.dart -> test/src/x/y_test.
 
 ## Releases
 
-Pushing a version tag builds the app and publishes a
+The **Release** workflow builds the app and publishes a
 [GitHub Release](https://github.com/NikodemJachec99/Fast-Reading-Learner/releases)
-with an Android APK and a zipped web build:
+with an Android APK and a zipped web build. Start it in one of two ways:
 
-```bash
-git switch main && git pull
-git tag v0.1.0
-git push origin v0.1.0
-```
+- **From GitHub:** go to **Actions → Release → Run workflow**, keep the branch
+  set to `main`, enter a version such as `v0.1.0` and click **Run workflow**.
+  The tag is created automatically.
+- **From the command line:**
+
+  ```bash
+  git switch main && git pull
+  git tag v0.1.0
+  git push origin v0.1.0
+  ```
 
 Use [semantic versioning](https://semver.org/): `v0.x.y` while in
 development. A tag with a hyphen (e.g. `v0.2.0-beta.1`) is published as a
