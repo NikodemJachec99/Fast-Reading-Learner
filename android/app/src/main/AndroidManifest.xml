@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="fast_reading_learner"
+        android:label="Fast Reading"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
