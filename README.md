@@ -25,6 +25,19 @@ flutter pub get
 flutter run            # pick a device: emulator, phone or Chrome
 ```
 
+### Backend (Supabase)
+
+The app uses Supabase for user data (see
+[ADR-0001](docs/adr/0001-state-management-and-storage.md)). Copy
+`config/supabase.example.json` to `config/supabase.json`, paste the
+publishable key from the Supabase dashboard and run:
+
+```bash
+flutter run --dart-define-from-file=config/supabase.json
+```
+
+Without the file the app still starts, just without a backend.
+
 ### Using FVM (recommended)
 
 [FVM](https://fvm.app/documentation/getting-started/installation) installs and
