@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app.dart';
+import '../exercises/exercises_screen.dart';
 
 /// Landing screen shown after the app starts.
 class HomeScreen extends StatelessWidget {
@@ -29,11 +30,14 @@ class HomeScreen extends StatelessWidget {
                 style: textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Exercises are coming soon.',
-                style: textTheme.bodyMedium,
-                textAlign: TextAlign.center,
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const ExercisesScreen(),
+                  ),
+                ),
+                child: const Text('Exercises'),
               ),
             ],
           ),
