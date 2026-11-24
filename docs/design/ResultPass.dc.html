@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Result, passed</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8ACFB2}a:hover{color:#FFFFFF}
+@keyframes fr-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fr-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes fr-spark{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+@keyframes r-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes r-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes r-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes r-unlock{0%{opacity:0;transform:scale(.7)}60%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@keyframes r-shack{0%,60%{transform:translateY(0)}80%,100%{transform:translateY(-3px) rotate(-18deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #163B34; color: #FFFFFF; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 60px; display: flex; gap: 14px; align-items: center; animation: r-rise .5s cubic-bezier(.2,.8,.2,1) both">
+    <dc-import name="PikoMark" mood="celebrate" size="84" hint-size="84px,92px"></dc-import>
+    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #BFE3D2">PHRASE WAVE · LEVEL 2</div><div style="font-size: 27px; line-height: 1.1; font-weight: 800; letter-spacing: -.03em; margin-top: 4px">Faster, and<br>you understood it.</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 186px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; animation: r-rise .5s .08s cubic-bezier(.2,.8,.2,1) both">
+    <div style="background: #FFFFFF; color: #163B34; border-radius: 22px; padding: 16px"><div style="font-size: 12px; font-weight: 700; color: #55695F">Reading speed</div><div style="font-size: 38px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums">{{wpm}}</div><div style="font-size: 13px; font-weight: 800; color: #106350">wpm · +16 vs last</div></div>
+    <div style="background: #FFFFFF; color: #163B34; border-radius: 22px; padding: 16px"><div style="font-size: 12px; font-weight: 700; color: #55695F">Understood</div><div style="font-size: 38px; font-weight: 800; letter-spacing: -.04em">3/3</div><div style="font-size: 13px; font-weight: 800; color: #106350">passed</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 336px; background: #24564C; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px; animation: r-rise .5s .16s cubic-bezier(.2,.8,.2,1) both">
+    <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px; font-weight: 800">Level progress</span><span style="font-size: 12px; font-weight: 700; color: #CFE6DB">3 of 3 sessions passed</span></div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+      <span style="height: 8px; border-radius: 99px; background: #4FB893"></span>
+      <span style="height: 8px; border-radius: 99px; background: #3E7A6C; overflow: hidden"><span style="display: block; height: 100%; background: #4FB893; transform-origin: left; animation: r-fill .9s .6s cubic-bezier(.65,0,.35,1) both"></span></span>
+      <span style="height: 8px; border-radius: 99px; background: #3E7A6C"></span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,.08); animation: r-unlock .5s 1.55s cubic-bezier(.34,1.56,.64,1) both">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EDBD60" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="3"></rect><path d="M8 11V8a4 4 0 0 1 8 0" style="transform-box: fill-box; transform-origin: 100% 100%; animation: r-shack .6s 1.8s cubic-bezier(.34,1.56,.64,1) both"></path></svg>
+      <span style="font-size: 14px; font-weight: 800">Level 3 unlocked</span><span style="font-size: 13px; color: #CFE6DB">every second phrase</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 548px; background: #24564C; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px; animation: r-rise .5s .24s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 14px; font-weight: 800">Last 5 sessions</div>
+    <div style="display: flex; align-items: flex-end; gap: 10px; height: 76px">
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 100%; height: 40px; border-radius: 7px; background: #3E7A6C; transform-origin: bottom; animation: r-grow .6s .3s cubic-bezier(.34,1.56,.64,1) both"></div><span style="font-size: 11px; color: #CFE6DB">198</span></div>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 100%; height: 46px; border-radius: 7px; background: #3E7A6C; transform-origin: bottom; animation: r-grow .6s .35s cubic-bezier(.34,1.56,.64,1) both"></div><span style="font-size: 11px; color: #CFE6DB">205</span></div>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 100%; height: 43px; border-radius: 7px; background: #3E7A6C; transform-origin: bottom; animation: r-grow .6s .4s cubic-bezier(.34,1.56,.64,1) both"></div><span style="font-size: 11px; color: #CFE6DB">201</span></div>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 100%; height: 52px; border-radius: 7px; background: #3E7A6C; transform-origin: bottom; animation: r-grow .6s .45s cubic-bezier(.34,1.56,.64,1) both"></div><span style="font-size: 11px; color: #CFE6DB">220</span></div>
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 100%; height: 58px; border-radius: 7px; background: #4FB893; transform-origin: bottom; animation: r-grow .6s .5s cubic-bezier(.34,1.56,.64,1) both"></div><span style="font-size: 11px; font-weight: 800">236</span></div>
+    </div>
+  </div>
+
+  <a href="Intro02Wave.dc.html" style="position: absolute; left: 22px; right: 22px; bottom: 92px; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #16846C; color: #FFFFFF; font-size: 17px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 22px rgba(0,0,0,.25)">Next text</a>
+  <a href="Today.dc.html" style="position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 15px; font-weight: 800; text-decoration: none; color: #E2F1E7">Back to Today</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wpm: 0 };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (this.state.wpm >= 236) { clearInterval(this.timer); return; }
+      this.setState({ wpm: Math.min(236, this.state.wpm + 9) });
+    }, 22);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    return { wpm: this.state.wpm };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shorten the Paragraph preview</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes sp-fly{0%{opacity:0;transform:translateY(-90px) scale(.96)}60%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes sp-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-60px) scale(.96)}}
+@keyframes sp-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center">
+    <a href="GalleryB.dc.html" aria-label="Back to the gallery" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <div style="text-align: center"><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #8B6121">PREVIEW · LOCKED IN APP</div><div style="font-size: 17px; font-weight: 800">Shorten the Paragraph</div></div>
+    <span style="width: 44px"></span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 112px; font-size: 13px; font-weight: 700; color: #4F655B">Tap the 3 sentences that carry the meaning.</div>
+
+  <div style="position: absolute; left: 14px; right: 14px; top: 140px; background: #FBFAF6; border: 1px solid #DCE3DD; border-radius: 22px; padding: 14px 12px">
+    <p style="margin: 0; font-family: Literata, Georgia, serif; font-size: 16px; line-height: 1.7"><sc-for list="{{sentences}}" as="s" hint-placeholder-count="6"><button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.toggle}}" style="{{s.style}}">{{s.text}}</button>{{s.sp}}</sc-for></p>
+  </div>
+
+  <div style="position: absolute; left: 14px; right: 14px; top: 486px; bottom: 112px; border-radius: 22px; border: 2px dashed {{boxBorder}}; background: {{boxBg}}; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; transition: border-color .3s, background .3s">
+    <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .12em; color: #974E3D"><span>YOUR SUMMARY</span><span>{{summaryWords}} of {{totalWords}} words</span></div>
+    <sc-if value="{{empty}}" hint-placeholder-val="{{ true }}"><div style="flex: 1; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #8A9A92">Selected sentences land here</div></sc-if>
+    <sc-for list="{{summary}}" as="m" hint-placeholder-count="0">
+      <div style="{{m.style}}"><span style="flex: 1; font-family: Literata, Georgia, serif; font-size: 14px; line-height: 1.5">{{m.text}}</span><button type="button" aria-label="Remove sentence" onClick="{{m.remove}}" style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 99px; border: 0; background: #F4E2DB; color: #974E3D; font-size: 16px; font-weight: 800; cursor: pointer">×</button></div>
+    </sc-for>
+    <sc-if value="{{compared}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: auto; border-radius: 14px; padding: 10px 12px; background: {{cmpBg}}; font-size: 13px; line-height: 1.45; font-weight: 700; color: {{cmpInk}}; animation: sp-in .35s both">{{cmpText}}</div>
+    </sc-if>
+  </div>
+
+  <button type="button" onClick="{{compare}}" style="{{cta}}">{{ctaLabel}}</button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: [], leaving: null, compared: false };
+  }
+  componentWillUnmount() { clearTimeout(this.lt); }
+  remove(i) {
+    clearTimeout(this.lt);
+    this.setState({ leaving: i, compared: false });
+    this.lt = setTimeout(() => this.setState({ picked: this.state.picked.filter((x) => x !== i), leaving: null }), 230);
+  }
+  renderVals() {
+    const S = [
+      { t: 'The library opened in 1998 in a former grain warehouse.', key: true },
+      { t: 'Its wooden beams were left visible on purpose.', key: false },
+      { t: 'Before it opened, most families could not borrow books nearby.', key: true },
+      { t: 'The reading room has tall windows facing the river.', key: false },
+      { t: 'Within a year loans doubled and the school moved lessons there.', key: true },
+      { t: 'On market days the square outside gets very busy.', key: false },
+    ];
+    const s = this.state;
+    const wc = (t) => t.split(/\s+/).length;
+    const total = S.reduce((n, x) => n + wc(x.t), 0);
+    const order = s.picked.slice().sort((a, b) => a - b);
+    const sumWords = order.reduce((n, i) => n + wc(S[i].t), 0);
+    const keys = order.filter((i) => S[i].key).length;
+    const extra = order.length - keys;
+    const good = keys === 3 && extra === 0;
+    return {
+      sentences: S.map((x, i) => {
+        const on = s.picked.indexOf(i) >= 0 && s.leaving !== i;
+        const miss = s.compared && x.key && !on;
+        return {
+          text: x.t, sp: i < S.length - 1 ? ' ' : '',
+          pressed: on ? 'true' : 'false',
+          toggle: () => { if (this.state.picked.indexOf(i) >= 0) this.remove(i); else this.setState({ picked: [...this.state.picked, i], compared: false }); },
+          style: 'display: inline; padding: 1px 2px; margin: 0; border: 0; font: inherit; line-height: inherit; text-align: left; cursor: pointer; border-radius: 5px; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background .25s, color .25s; ' +
+            (on ? 'background: #FCECE6; color: #163B34; box-shadow: inset 0 -2px 0 #E68A73;' : miss ? 'background: transparent; color: #163B34; text-decoration: underline wavy #E68A73;' : s.picked.length ? 'background: transparent; color: #6B7E74;' : 'background: transparent; color: #163B34;'),
+        };
+      }),
+      empty: order.length === 0,
+      summary: order.map((i) => ({
+        text: S[i].t,
+        remove: () => this.remove(i),
+        style: 'display: flex; gap: 8px; align-items: center; padding: 8px 8px 8px 12px; border-radius: 14px; background: #FFFFFF; border: 1px solid ' + (s.compared ? (S[i].key ? '#16846C' : '#B4533F') : '#E9D6CE') + '; animation: ' + (s.leaving === i ? 'sp-out .23s ease-in forwards' : 'sp-fly .45s cubic-bezier(.34,1.2,.64,1) both') + ';',
+      })),
+      summaryWords: sumWords, totalWords: total,
+      boxBorder: order.length ? '#E68A73' : '#DCE3DD',
+      boxBg: order.length ? '#FFF8F5' : 'transparent',
+      compared: s.compared,
+      cmpText: good ? 'Great summary: 3 key ideas in ' + sumWords + ' words, ' + Math.round((1 - sumWords / total) * 100) + '% shorter than the original.' : keys + ' of 3 key ideas' + (extra ? ', ' + extra + ' extra detail' + (extra > 1 ? 's' : '') : '') + '. Missed ideas are underlined in the text.',
+      cmpBg: good ? '#DCF0E5' : '#FCECE6',
+      cmpInk: good ? '#106350' : '#974E3D',
+      ctaLabel: order.length < 3 ? 'Select ' + (3 - order.length) + ' more' : 'Compare with the original',
+      compare: () => { if (this.state.picked.length >= 3) this.setState({ compared: true }); },
+      cta: 'position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 56px; border-radius: 18px; border: 0; font-size: 16px; font-weight: 800; cursor: pointer; transition: background .25s; ' + (order.length >= 3 ? 'background: #974E3D; color: #FFFFFF;' : 'background: #E6ECE4; color: #8A9A92;'),
+    };
+  }
+}
+</script>
+</body>
+</html>

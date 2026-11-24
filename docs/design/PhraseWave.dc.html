@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phrase Wave</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes tp-a{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes tp-b{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes pw-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #FBFAF6; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: #EDF1EC"><span style="display: block; height: 3px; background: #16846C; width: {{pct}}%; transition: width .3s linear"></span></div>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center">
+    <a href="Intro02Wave.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+    <div style="text-align: center"><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #106350">TRAINING · STEP 1 OF 3</div><div style="font-size: 17px; font-weight: 800">Phrase Wave</div></div>
+    <span style="font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; color: #55695F; min-width: 44px; text-align: right">{{time}}</span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 112px; display: flex; gap: 6px; align-items: center">
+    <span style="font-size: 12px; font-weight: 700; color: #55695F; margin-right: 4px">Preview level</span>
+    <sc-for list="{{levels}}" as="l" hint-placeholder-count="3">
+      <button type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}" style="{{l.style}}">{{l.label}}</button>
+    </sc-for>
+  </div>
+
+  <div ref="{{setBox}}" style="position: absolute; left: 26px; right: 26px; top: 162px; font-family: Literata, Georgia, serif; font-size: 20px; line-height: 1.8">
+    <sc-for list="{{hl}}" as="r" hint-placeholder-count="0">
+      <span aria-hidden="true" style="{{r.style}}"></span>
+    </sc-for>
+    <p style="position: relative; margin: 0 0 .7em"><sc-for list="{{p1}}" as="p" hint-placeholder-count="8"><span><span data-i="{{p.i}}" style="{{p.style}}">{{p.text}}</span>{{p.sp}}</span></sc-for></p>
+    <p style="position: relative; margin: 0"><sc-for list="{{p2}}" as="p" hint-placeholder-count="8"><span><span data-i="{{p.i}}" style="{{p.style}}">{{p.text}}</span>{{p.sp}}</span></sc-for></p>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 20px; padding: 10px 12px 10px 16px">
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #55695F">Tempo</div>
+        <div style="display: flex; align-items: baseline; gap: 6px"><span style="{{tempoStyle}}">{{wpm}}</span><span style="font-size: 14px; font-weight: 800; color: #55695F">wpm</span></div>
+      </div>
+      <div style="display: flex; gap: 8px">
+        <button type="button" aria-label="Slower by 20" onClick="{{slower}}" style="width: 52px; height: 52px; border-radius: 16px; border: 1px solid #DCE3DD; background: #F7F5EE; font-size: 24px; font-weight: 800; color: #163B34; cursor: pointer">−</button>
+        <button type="button" aria-label="Faster by 20" onClick="{{faster}}" style="width: 52px; height: 52px; border-radius: 16px; border: 1px solid #DCE3DD; background: #F7F5EE; font-size: 24px; font-weight: 800; color: #163B34; cursor: pointer">+</button>
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px">
+      <button type="button" onClick="{{toggle}}" style="flex: 1; min-height: 56px; border-radius: 18px; border: 0; background: #163B34; color: #FFFFFF; font-size: 17px; font-weight: 800; cursor: pointer">{{toggleLabel}}</button>
+      <a href="Test.dc.html" style="{{finishStyle}}">Finish reading</a>
+    </div>
+    <div style="font-size: 12px; font-weight: 600; color: #55695F; text-align: center">{{note}}</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { level: 2, idx: -1, playing: false, done: false, wpm: 220, bump: 0, readMs: 0, startedAt: 0, hl: [], now: 0 };
+    this.box = null;
+    this.measured = '';
+  }
+  phrases(level) {
+    const short = [['In the autumn', 'of 1998,', 'the small town', 'of Brena', 'opened its first', 'public library', 'in an old', 'grain warehouse', 'by the river.', 'For years,', 'the nearest one', 'was forty minutes', 'away by bus.'], ['The building', 'was not grand,', 'but the reading room', 'had tall windows', 'facing the water', 'and stayed quiet', 'even on', 'market days.']];
+    const long = [['In the autumn of 1998,', 'the small town of Brena', 'opened its first public library', 'in an old grain warehouse by the river.', 'For years, the nearest one', 'was forty minutes away by bus.'], ['The building was not grand,', 'but the reading room had tall windows', 'facing the water', 'and stayed quiet even on market days.']];
+    return level === 1 ? short : long;
+  }
+  flat() { const p = this.phrases(this.state.level); return p[0].concat(p[1]); }
+  componentWillUnmount() { clearTimeout(this.t); clearInterval(this.clock); }
+  componentDidUpdate() { this.measure(); }
+  measure() {
+    const s = this.state;
+    const key = s.level + ':' + s.idx;
+    if (key === this.measured || !this.box) return;
+    this.measured = key;
+    if (s.idx < 0 || (s.level === 3 && s.idx % 2 === 1)) { if (s.hl.length) this.setState({ hl: [] }); return; }
+    const el = this.box.querySelector('[data-i="' + s.idx + '"]');
+    if (!el) return;
+    const br = this.box.getBoundingClientRect();
+    const k = br.width / (this.box.offsetWidth || br.width) || 1;
+    const rects = Array.prototype.slice.call(el.getClientRects()).map((r) => ({
+      x: (r.left - br.left) / k - 4, y: (r.top - br.top) / k + 2, w: r.width / k + 8, h: r.height / k - 4,
+    }));
+    this.setState({ hl: rects });
+  }
+  schedule() {
+    clearTimeout(this.t);
+    const list = this.flat();
+    const ph = list[this.state.idx];
+    if (!ph) return;
+    const dur = ph.split(/\s+/).length * 60000 / this.state.wpm;
+    this.t = setTimeout(() => {
+      if (this.state.idx + 1 < list.length) this.setState({ idx: this.state.idx + 1 }, () => this.schedule());
+      else this.stop(true);
+    }, dur);
+  }
+  play() {
+    const first = this.state.idx < 0 || this.state.done;
+    this.setState({ playing: true, done: false, idx: first ? 0 : this.state.idx, readMs: first ? 0 : this.state.readMs, startedAt: Date.now() }, () => this.schedule());
+    clearInterval(this.clock);
+    this.clock = setInterval(() => this.setState({ now: Date.now() }), 500);
+  }
+  stop(finished) {
+    clearTimeout(this.t);
+    clearInterval(this.clock);
+    const add = this.state.playing ? Date.now() - this.state.startedAt : 0;
+    this.setState({ playing: false, done: !!finished, readMs: this.state.readMs + add, idx: finished ? this.flat().length : this.state.idx, hl: finished ? [] : this.state.hl });
+  }
+  renderVals() {
+    const s = this.state;
+    const [a, b] = this.phrases(s.level === 3 ? 3 : s.level);
+    const total = a.length + b.length;
+    const ms = s.readMs + (s.playing ? Math.max(0, s.now - s.startedAt) : 0);
+    const secs = Math.floor(ms / 1000);
+    const mk = (arr, off) => arr.map((text, j) => {
+      const i = off + j;
+      const fallback = s.idx === i && s.hl.length === 0 && !(s.level === 3 && i % 2 === 1);
+      const color = s.idx < 0 ? '#6B7E74' : i <= s.idx ? '#163B34' : '#6B7E74';
+      return {
+        i, text, sp: j < arr.length - 1 ? ' ' : '',
+        style: 'color: ' + color + '; transition: color .35s ease; border-radius: 6px;' + (fallback ? ' background: #C9E9D7;' : ''),
+      };
+    });
+    const words = this.flat().slice(0, Math.max(0, Math.min(s.idx, total))).join(' ').split(/\s+/).filter(Boolean).length;
+    return {
+      levels: [1, 2, 3].map((n) => ({
+        label: 'L' + n,
+        pressed: s.level === n ? 'true' : 'false',
+        pick: () => { clearTimeout(this.t); clearInterval(this.clock); this.measured = ''; this.setState({ level: n, idx: -1, playing: false, done: false, readMs: 0, hl: [] }); },
+        style: 'min-width: 44px; min-height: 32px; border-radius: 99px; font-size: 12px; font-weight: 800; cursor: pointer; transition: background .2s, color .2s; ' + (s.level === n ? 'background: #163B34; color: #FFFFFF; border: 1px solid #163B34;' : 'background: #FFFFFF; color: #163B34; border: 1px solid #DCE3DD;'),
+      })),
+      setBox: (el) => { this.box = el; },
+      hl: s.hl.map((r) => ({ style: 'position: absolute; left: ' + r.x + 'px; top: ' + r.y + 'px; width: ' + r.w + 'px; height: ' + r.h + 'px; border-radius: 8px; background: #C9E9D7; transition: left .32s cubic-bezier(.45,0,.2,1), top .32s cubic-bezier(.45,0,.2,1), width .32s cubic-bezier(.45,0,.2,1), height .32s, opacity .3s; opacity: ' + (s.playing ? '1' : '.5') + ';' })),
+      p1: mk(a, 0),
+      p2: mk(b, a.length),
+      pct: s.idx < 0 ? 0 : Math.round(Math.min(s.idx + 1, total) / total * 100),
+      time: Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0'),
+      wpm: s.wpm,
+      tempoStyle: 'display: inline-block; font-size: 34px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; animation: ' + (s.bump % 2 ? 'tp-a' : 'tp-b') + ' .3s cubic-bezier(.34,1.56,.64,1);',
+      slower: () => { this.setState({ wpm: Math.max(120, this.state.wpm - 20), bump: this.state.bump + 1 }, () => { if (this.state.playing) this.schedule(); }); },
+      faster: () => { this.setState({ wpm: Math.min(600, this.state.wpm + 20), bump: this.state.bump + 1 }, () => { if (this.state.playing) this.schedule(); }); },
+      toggleLabel: s.playing ? 'Pause' : s.done ? 'Read again' : s.idx < 0 ? 'Start' : 'Resume',
+      toggle: () => { if (this.state.playing) this.stop(false); else this.play(); },
+      finishStyle: 'flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; text-decoration: none; font-size: 16px; font-weight: 800; transition: background .25s, color .25s; ' +
+        (s.idx < 0 ? 'background: #E6ECE4; color: #8A9A92; pointer-events: none;' : 'background: #16846C; color: #FFFFFF; box-shadow: 0 10px 22px rgba(22,132,108,.28);'),
+      note: s.done ? 'Done · ' + words + ' words in ' + secs + ' s of real reading' : s.level === 3 ? 'Level 3: keep the rhythm when the highlight skips a phrase.' : 'We count real reading time, pauses excluded.',
+    };
+  }
+}
+</script>
+</body>
+</html>

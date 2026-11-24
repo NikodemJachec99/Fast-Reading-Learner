@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exercises</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fr-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes fr-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pv-scroll{0%{transform:translateY(0)}100%{transform:translateY(-44px)}}
+@keyframes pv-prog{0%{width:6%}100%{width:96%}}
+@keyframes pv-wave{0%{left:6px;top:11px;width:34px}16%{left:42px;top:11px;width:50px}32%{left:6px;top:27px;width:56px}48%{left:64px;top:27px;width:44px}64%{left:6px;top:43px;width:40px}80%{left:48px;top:43px;width:60px}100%{left:6px;top:11px;width:34px}}
+@keyframes pv-draw{0%,10%{stroke-dashoffset:80;opacity:1}45%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes pv-ok{0%,40%{border-color:#E3C9BF;background:#FFFFFF}50%,85%{border-color:#16846C;background:#DCF0E5}100%{border-color:#E3C9BF;background:#FFFFFF}}
+@keyframes pv-scan{0%{left:2px;top:22px}25%{left:84px;top:22px}50%{left:4px;top:50px}75%,100%{left:52px;top:35px}}
+@keyframes pv-found{0%,72%{background:transparent;transform:scale(1)}82%{background:#16846C;transform:scale(1.25)}92%,100%{background:#16846C;transform:scale(1)}}
+@keyframes pv-pop{0%,10%{transform:scale(0);opacity:0}30%{transform:scale(1.2);opacity:1}40%,100%{transform:scale(1);opacity:1}}
+@keyframes pv-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes pv-fadeL{0%,15%{opacity:1}55%{opacity:.12}85%,100%{opacity:1}}
+@keyframes pv-fly1{0%,25%{transform:translate(0,0)}55%,90%{transform:translate(4px,38px)}100%{transform:translate(0,0);opacity:0}}
+@keyframes pv-fly2{0%,25%{transform:translate(0,0)}55%,90%{transform:translate(4px,36px)}100%{transform:translate(0,0);opacity:0}}
+@keyframes pv-flip{0%,35%{transform:rotateY(0)}50%,85%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 58px; display: flex; justify-content: space-between; align-items: flex-end">
+    <div>
+      <h1 style="margin: 0; font-size: 31px; font-weight: 800; letter-spacing: -.035em">Exercises</h1>
+      <p style="margin: 4px 0 0; font-size: 14px; color: #4F655B">Each one ends with a comprehension test.</p>
+    </div>
+    <div style="text-align: right"><div style="font-size: 20px; font-weight: 800">8/15</div><div style="font-size: 11px; font-weight: 700; color: #55695F">levels done</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 132px; display: flex; gap: 4px; padding: 4px; border-radius: 99px; background: #EBEFE9">
+    <sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+      <button type="button" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; top: 184px; bottom: 0; overflow-y: auto; padding: 4px 22px 140px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+    <sc-for list="{{items}}" as="e" hint-placeholder-count="5">
+      <a href="{{e.href}}" style="{{e.card}}">
+        <dc-import name="ExPreview" ex="{{e.ex}}" scale="{{ 0.84 }}" locked="{{e.locked}}" hint-size="101px,71px"></dc-import>
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+          <span style="display: flex; justify-content: space-between; align-items: center; gap: 6px">
+            <span style="{{e.catStyle}}">{{e.num}} · {{e.cat}}</span>
+            <span style="{{e.badgeStyle}}">{{e.badge}}</span>
+          </span>
+          <span style="font-size: 16px; font-weight: 800; line-height: 1.2">{{e.name}}</span>
+          <span style="font-size: 12px; line-height: 1.35; color: #4F655B">{{e.desc}}</span>
+          <span style="display: flex; gap: 4px; margin-top: 5px" aria-hidden="true">
+            <sc-for list="{{e.segs}}" as="g" hint-placeholder-count="3">
+              <span style="flex: 1; height: 5px; border-radius: 99px; overflow: hidden; background: {{g.track}}"><span style="{{g.fill}}"></span></span>
+            </sc-for>
+          </span>
+          <span style="font-size: 11px; font-weight: 700; color: #55695F">{{e.status}}</span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg, rgba(247,245,238,0), rgba(247,245,238,.9) 55%); pointer-events: none"></div>
+  <div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 110px">
+    <dc-import name="TabBar" active="exercises" hint-size="390px,110px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'all' };
+  }
+  renderVals() {
+    const f = this.state.filter;
+    const tints = { reading: '#106350', comprehension: '#974E3D', memory: '#5B4691' };
+    const all = [
+      { num: '01', ex: 'read', key: 'reading', cat: 'READING', name: 'Read & Check', desc: 'Read at your own pace. We measure real time.', lv: 2, passed: 2, href: 'Intro01Read.dc.html' },
+      { num: '02', ex: 'wave', key: 'reading', cat: 'READING', name: 'Phrase Wave', desc: 'A soft highlight sets your rhythm.', lv: 3, passed: 1, href: 'Intro02Wave.dc.html' },
+      { num: '03', ex: 'bridges', key: 'comprehension', cat: 'COMPREHENSION', name: 'Meaning Bridges', desc: 'Connect causes, reasons and results.', lv: 1, passed: 1, href: 'Intro03Bridges.dc.html' },
+      { num: '04', ex: 'hunter', key: 'comprehension', cat: 'COMPREHENSION', name: 'Info Hunter', desc: 'Find one fact in a full text, fast.', lv: 3, passed: 3, mastered: true, href: 'Intro04Hunter.dc.html' },
+      { num: '05', ex: 'map', key: 'memory', cat: 'MEMORY', name: 'Memory Map', desc: 'Rebuild the main ideas from memory.', lv: 1, passed: 0, isNew: true, href: 'Intro05Map.dc.html' },
+      { num: '06', ex: 'fading', key: 'reading', cat: 'READING', name: 'Fading Text', desc: 'Keep reading while letters fade.', locked: true, href: 'GalleryB.dc.html' },
+      { num: '07', ex: 'shorten', key: 'comprehension', cat: 'COMPREHENSION', name: 'Shorten the Paragraph', desc: 'Build a summary from key sentences.', locked: true, href: 'GalleryB.dc.html' },
+      { num: '08', ex: 'assoc', key: 'memory', cat: 'MEMORY', name: 'Associations', desc: 'Link images and words, then recall.', locked: true, href: 'GalleryB.dc.html' },
+    ];
+    const counts = { all: 8, reading: 3, comprehension: 3, memory: 2 };
+    const chipDefs = [['all', 'All'], ['reading', 'Reading'], ['comprehension', 'Compr.'], ['memory', 'Memory']];
+    const list = all.filter((e) => f === 'all' || e.key === f);
+    const badge = (e) => {
+      if (e.locked) return ['Soon', 'background: #E6ECE4; color: #4F655B;'];
+      if (e.mastered) return ['Mastered', 'background: #16846C; color: #FFFFFF;'];
+      if (e.isNew) return ['New', 'background: #F8EAC7; color: #8B6121;'];
+      return ['Level ' + e.lv, 'background: #DCF0E5; color: #106350;'];
+    };
+    return {
+      chips: chipDefs.map(([k, label]) => ({
+        label: label + ' ' + counts[k],
+        pressed: f === k ? 'true' : 'false',
+        pick: () => this.setState({ filter: k }),
+        style: 'flex: 1; min-height: 38px; border: 0; border-radius: 99px; font-size: 12px; font-weight: 800; cursor: pointer; transition: background .25s, box-shadow .25s, color .25s; ' +
+          (f === k ? 'background: #FFFFFF; color: #163B34; box-shadow: 0 1px 2px rgba(22,59,52,.08), 0 4px 10px rgba(22,59,52,.1);' : 'background: transparent; color: #4F655B;'),
+      })),
+      items: list.map((e, i) => {
+        const [b, bs] = badge(e);
+        const segs = [1, 2, 3].map((k) => {
+          let pct = 0;
+          if (e.locked) pct = 0;
+          else if (e.mastered || k < e.lv) pct = 100;
+          else if (k === e.lv) pct = Math.round(e.passed / 3 * 100);
+          return {
+            track: e.locked ? '#E6ECE4' : (k > e.lv ? '#E6ECE4' : '#DCF0E5'),
+            fill: 'display: block; height: 100%; width: ' + pct + '%; border-radius: 99px; background: #16846C; transform-origin: left; animation: fr-fill .7s ' + (0.2 + i * 0.05 + k * 0.08).toFixed(2) + 's cubic-bezier(.34,1.3,.64,1) both;',
+          };
+        });
+        return {
+          ...e,
+          locked: !!e.locked,
+          badge: b,
+          badgeStyle: 'flex-shrink: 0; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; ' + bs,
+          catStyle: 'font-size: 10px; font-weight: 800; letter-spacing: .1em; color: ' + tints[e.key] + ';',
+          status: e.locked ? 'Locked in the app · open the preview' : e.mastered ? 'All 3 levels passed' : e.isNew ? 'Level 1 · not started' : 'Level ' + e.lv + ' · ' + e.passed + ' of 3 sessions passed',
+          segs,
+          card: 'display: flex; align-items: center; gap: 12px; box-sizing: border-box; padding: 10px; border-radius: 22px; text-decoration: none; color: #163B34; background: #FFFFFF; border: 1px solid #DCE3DD; box-shadow: 0 1px 2px rgba(22,59,52,.04); animation: fr-rise .45s ' + (i * 0.04).toFixed(2) + 's cubic-bezier(.2,.8,.2,1) both;' + (e.locked ? ' background: rgba(255,255,255,.6);' : ''),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

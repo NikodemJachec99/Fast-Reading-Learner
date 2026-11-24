@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fr-sheet{from{transform:translateY(105%)}to{transform:none}}
+@keyframes fr-fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 16px; right: 16px; top: 56px; display: flex; align-items: center; justify-content: space-between">
+    <a href="Today.dc.html" aria-label="Back to Today" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.58); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 8px 20px rgba(22,59,52,.12)"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <div style="font-size: 17px; font-weight: 800">Settings</div>
+    <span style="width: 44px"></span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 116px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .45s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #55695F; padding-left: 4px">READER</div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+      <p style="margin: 0; font-family: Literata, Georgia, serif; line-height: 1.7; color: #163B34; font-size: {{fs}}px; transition: font-size .3s cubic-bezier(.34,1.56,.64,1)">In a small town a new library opened.</p>
+      <div style="position: relative; display: flex; padding: 3px; border-radius: 99px; background: rgba(22,59,52,.06); border: 1px solid #DCE3DD">
+        <span style="{{sizeLens}}"></span>
+        <sc-for list="{{sizes}}" as="s" hint-placeholder-count="3">
+          <button type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="position: relative; flex: 1; min-height: 36px; border: 0; background: transparent; border-radius: 99px; font-size: 13px; font-weight: 800; color: #163B34; cursor: pointer">{{s.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 290px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .45s .05s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #55695F; padding-left: 4px">APPEARANCE</div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 20px; overflow: hidden">
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 14px; border-bottom: 1px solid #EDF1EC">
+        <span style="font-size: 15px; font-weight: 700">Accent</span>
+        <span style="display: flex; gap: 10px">
+          <sc-for list="{{accents}}" as="a" hint-placeholder-count="4">
+            <button type="button" aria-label="{{a.name}}" aria-pressed="{{a.pressed}}" onClick="{{a.pick}}" style="{{a.style}}"></button>
+          </sc-for>
+        </span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 14px; border-bottom: 1px solid #EDF1EC">
+        <label for="rm" style="font-size: 15px; font-weight: 700">Reduce motion</label>
+        <button id="rm" type="button" role="switch" aria-checked="{{rmOn}}" onClick="{{toggleRm}}" style="{{sw}}"><span style="{{knob}}"></span></button>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 14px">
+        <span style="font-size: 15px; font-weight: 700">Language</span>
+        <span style="position: relative; display: flex; padding: 3px; border-radius: 99px; background: rgba(22,59,52,.06); border: 1px solid #DCE3DD">
+          <span style="{{langLens}}"></span>
+          <sc-for list="{{langs}}" as="l" hint-placeholder-count="3">
+            <button type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}" style="position: relative; width: 62px; min-height: 32px; border: 0; background: transparent; border-radius: 99px; font-size: 12px; font-weight: 800; color: #163B34; cursor: pointer">{{l.label}}</button>
+          </sc-for>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 502px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .45s .1s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #55695F; padding-left: 4px">PROFILE AND DATA</div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 20px; overflow: hidden">
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 14px; border-bottom: 1px solid #EDF1EC">
+        <label for="nm" style="font-size: 15px; font-weight: 700">Name</label>
+        <input id="nm" type="text" value="Ola" style="width: 140px; text-align: right; border: 0; background: transparent; font-family: Manrope, sans-serif; font-size: 15px; font-weight: 700; color: #4F655B">
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 14px; border-bottom: 1px solid #EDF1EC">
+        <span style="font-size: 15px; font-weight: 700">Show intro again</span>
+        <a href="Onboarding.dc.html" style="font-size: 14px; font-weight: 800; text-decoration: none; min-height: 44px; display: flex; align-items: center">Open</a>
+      </div>
+      <button type="button" onClick="{{askReset}}" style="width: 100%; min-height: 56px; border: 0; background: transparent; text-align: left; padding: 0 14px; font-size: 15px; font-weight: 800; color: #B4533F; cursor: pointer">Reset statistics</button>
+    </div>
+    <div style="font-size: 12px; line-height: 1.5; color: #55695F; padding: 0 4px">Everything stays on this device. No account.</div>
+  </div>
+
+  <sc-if value="{{confirm}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; background: rgba(14,38,34,.32); animation: fr-fade .25s both"></div>
+    <div role="dialog" aria-label="Reset statistics" style="position: absolute; left: 10px; right: 10px; bottom: 10px; box-sizing: border-box; padding: 22px; border-radius: 34px; background: rgba(255,255,255,.82); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 #FFFFFF, 0 30px 60px rgba(22,59,52,.3); display: flex; flex-direction: column; gap: 12px; animation: fr-sheet .45s cubic-bezier(.34,1.3,.64,1) both">
+      <div style="width: 40px; height: 5px; border-radius: 99px; background: #C9D3CB; align-self: center"></div>
+      <div style="font-size: 20px; font-weight: 800">Reset all statistics?</div>
+      <div style="font-size: 14px; line-height: 1.5; color: #4F655B">This removes 24 sessions, your streak and exercise levels. Saved texts stay. It cannot be undone.</div>
+      <button type="button" onClick="{{closeReset}}" style="min-height: 54px; border-radius: 16px; border: 0; background: #B4533F; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer">Reset statistics</button>
+      <button type="button" onClick="{{closeReset}}" style="min-height: 48px; border-radius: 16px; border: 0; background: transparent; color: #163B34; font-size: 16px; font-weight: 800; cursor: pointer">Cancel</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { size: 2, accent: 0, rm: false, lang: 1, confirm: false };
+  }
+  renderVals() {
+    const s = this.state;
+    const sizeDefs = ['Small', 'Medium', 'Large'];
+    const accentDefs = [['Green', '#16846C'], ['Blue', '#2F5BD9'], ['Orange', '#C2410C'], ['Violet', '#7C3AED']];
+    const langDefs = ['System', 'English', 'Polski'];
+    return {
+      fs: [16, 18, 21][s.size],
+      sizeLens: 'position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc((100% - 6px) / 3); border-radius: 99px; background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 4px 12px rgba(22,59,52,.16); transition: transform .36s cubic-bezier(.34,1.56,.64,1); transform: translateX(' + (s.size * 100) + '%);',
+      sizes: sizeDefs.map((label, i) => ({ label, pressed: s.size === i ? 'true' : 'false', pick: () => this.setState({ size: i }) })),
+      accents: accentDefs.map(([name, hex], i) => ({
+        name, pressed: s.accent === i ? 'true' : 'false',
+        pick: () => this.setState({ accent: i }),
+        style: 'width: 30px; height: 30px; border-radius: 99px; cursor: pointer; background: ' + hex + '; border: 3px solid #FFFFFF; transition: box-shadow .25s, transform .25s cubic-bezier(.34,1.56,.64,1); ' +
+          (s.accent === i ? 'box-shadow: 0 0 0 2px ' + hex + '; transform: scale(1.08);' : 'box-shadow: 0 0 0 1px #DCE3DD;'),
+      })),
+      rmOn: s.rm ? 'true' : 'false',
+      toggleRm: () => this.setState({ rm: !this.state.rm }),
+      sw: 'position: relative; width: 52px; height: 30px; border-radius: 99px; border: 0; cursor: pointer; transition: background .25s; background: ' + (s.rm ? '#16846C' : '#C9D3CB') + ';',
+      knob: 'position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 99px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(22,59,52,.25); transition: transform .32s cubic-bezier(.34,1.56,.64,1); transform: translateX(' + (s.rm ? '22px' : '0') + ');',
+      langLens: 'position: absolute; top: 3px; bottom: 3px; left: 3px; width: 62px; border-radius: 99px; background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 4px 12px rgba(22,59,52,.16); transition: transform .36s cubic-bezier(.34,1.56,.64,1); transform: translateX(' + (s.lang * 62) + 'px);',
+      langs: langDefs.map((label, i) => ({ label, pressed: s.lang === i ? 'true' : 'false', pick: () => this.setState({ lang: i }) })),
+      confirm: s.confirm,
+      askReset: () => this.setState({ confirm: true }),
+      closeReset: () => this.setState({ confirm: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

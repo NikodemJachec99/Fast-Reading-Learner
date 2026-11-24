@@ -101,6 +101,11 @@ attached because they require an Apple developer account for signing.
 Important technical decisions are documented as ADRs in
 [`docs/adr/`](docs/adr/README.md).
 
+## Design
+
+The full app design (foundations, screens and exercises) lives in
+[`docs/design/`](docs/design/README.md).
+
 ## Contributing
 
 All changes go through pull requests with at least one approving review.

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fast Reading design system overview</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#16846C}a:hover{color:#0F5E4D}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fr-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fr-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes fr-spark{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+@keyframes fr-shine{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(260%) skewX(-18deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 960px; box-sizing: border-box; padding: 80px 96px; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif; display: flex; flex-direction: column; gap: 56px; overflow: hidden; position: relative">
+  <div style="position: absolute; right: -180px; top: -220px; width: 720px; height: 720px; border-radius: 50%; background: #DCF0E5"></div>
+  <div style="position: absolute; right: 240px; top: 380px; width: 260px; height: 260px; border-radius: 50%; background: #EDE8FA"></div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; position: relative">
+    <div style="display: flex; flex-direction: column; gap: 28px; max-width: 760px; animation: fr-rise .7s cubic-bezier(.2,.8,.2,1) both">
+      <div style="font-size: 14px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #106350">Fast Reading · Design system v1.0</div>
+      <h1 style="margin: 0; font-size: 76px; line-height: 1.02; font-weight: 800; letter-spacing: -.045em">Read faster.<br>Understand more.<br>Remember longer<span style="color: #16846C">.</span></h1>
+      <p style="margin: 0; font-size: 21px; line-height: 1.55; color: #4F655B; max-width: 640px">One system for the whole app: brand foundations, Liquid Glass chrome, motion, every screen and all eight exercises. Paper stays calm for reading. Glass is for navigation and controls only.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #FFFFFF; border: 1px solid #DCE3DD">Foundations</span>
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #FFFFFF; border: 1px solid #DCE3DD">Controls</span>
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #FFFFFF; border: 1px solid #DCE3DD">Motion</span>
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #FFFFFF; border: 1px solid #DCE3DD">Topology</span>
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #DCF0E5; color: #106350">10 screens</span>
+        <span style="font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 99px; background: #FCECE6; color: #974E3D">9 exercise screens</span>
+      </div>
+    </div>
+
+    <div style="position: relative; width: 420px; height: 440px; display: flex; align-items: center; justify-content: center">
+      <div style="position: absolute; left: 30px; top: 40px; width: 360px; height: 360px; border-radius: 48px; background: rgba(255,255,255,.55); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.8); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 30px 60px rgba(22,59,52,.16)"></div>
+      <div style="position: relative">
+        <dc-import name="PikoMark" mood="celebrate" size="240" hint-size="240px,262px"></dc-import>
+      </div>
+      <div style="position: absolute; right: 6px; bottom: 26px; width: 112px; height: 112px; border-radius: 26px; background: #163B34; overflow: hidden; box-shadow: 0 18px 36px rgba(22,59,52,.28); display: flex; align-items: flex-end; justify-content: center">
+        <dc-import name="PikoMark" mood="calm" size="120" motion="{{ false }}" hint-size="120px,131px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; position: relative">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; animation: fr-rise .6s .1s cubic-bezier(.2,.8,.2,1) both">
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #106350">01</div>
+      <div style="font-size: 22px; font-weight: 800; letter-spacing: -.02em">Text comes first</div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4F655B">Reading surfaces are opaque paper in Literata. Nothing animates over a text while it is being read.</p>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; animation: fr-rise .6s .18s cubic-bezier(.2,.8,.2,1) both">
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #106350">02</div>
+      <div style="font-size: 22px; font-weight: 800; letter-spacing: -.02em">Glass for chrome</div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4F655B">Tab bar, top controls, segmented controls and floating actions use Liquid Glass: blur, light rim, soft depth.</p>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; animation: fr-rise .6s .26s cubic-bezier(.2,.8,.2,1) both">
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #106350">03</div>
+      <div style="font-size: 22px; font-weight: 800; letter-spacing: -.02em">Motion with meaning</div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4F655B">Springs confirm a tap, a right answer or a finished round. Every animation has a reduced motion fallback.</p>
+    </div>
+    <div style="background: #163B34; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; animation: fr-rise .6s .34s cubic-bezier(.2,.8,.2,1) both">
+      <div style="position: absolute; top: 0; bottom: 0; left: 0; width: 80px; background: rgba(255,255,255,.12); animation: fr-shine 4s 1s ease-in-out infinite"></div>
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #BFE3D2">THE RULE</div>
+      <div style="font-size: 22px; font-weight: 800; letter-spacing: -.02em">Speed counts only when you understood</div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #CFE6DB">Below 2/3 correct the WPM is shown, marked and left out of statistics.</p>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: #55695F; position: relative; margin-top: auto">
+    <span>iOS · Android · Web, Flutter 3.47, Material 3 base with a custom glass layer</span>
+    <span>English default, Polish second · 390 × 844 reference device</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

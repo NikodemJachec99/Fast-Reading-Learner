@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Progression and card states</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes g-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes g-unlock{0%{opacity:0;transform:translateY(8px) scale(.9)}60%{opacity:1;transform:scale(1.05)}100%{opacity:1;transform:none}}
+@keyframes g-shack{0%{transform:none}100%{transform:translateY(-3px) rotate(-20deg)}}
+@keyframes g-dot{0%{transform:scale(.3)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes pv-scroll{0%{transform:translateY(0)}100%{transform:translateY(-44px)}}
+@keyframes pv-prog{0%{width:6%}100%{width:96%}}
+@keyframes pv-wave{0%{left:6px;top:11px;width:34px}16%{left:42px;top:11px;width:50px}32%{left:6px;top:27px;width:56px}48%{left:64px;top:27px;width:44px}64%{left:6px;top:43px;width:40px}80%{left:48px;top:43px;width:60px}100%{left:6px;top:11px;width:34px}}
+@keyframes pv-draw{0%,10%{stroke-dashoffset:80;opacity:1}45%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes pv-ok{0%,40%{border-color:#E3C9BF;background:#FFFFFF}50%,85%{border-color:#16846C;background:#DCF0E5}100%{border-color:#E3C9BF;background:#FFFFFF}}
+@keyframes pv-scan{0%{left:2px;top:22px}25%{left:84px;top:22px}50%{left:4px;top:50px}75%,100%{left:52px;top:35px}}
+@keyframes pv-found{0%,72%{background:transparent;transform:scale(1)}82%{background:#16846C;transform:scale(1.25)}92%,100%{background:#16846C;transform:scale(1)}}
+@keyframes pv-pop{0%,10%{transform:scale(0);opacity:0}30%{transform:scale(1.2);opacity:1}40%,100%{transform:scale(1);opacity:1}}
+@keyframes pv-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes pv-fadeL{0%,15%{opacity:1}55%{opacity:.12}85%,100%{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1240px; box-sizing: border-box; padding: 72px 80px; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif; display: flex; flex-direction: column; gap: 30px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div>
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .16em; color: #106350">EXERCISE GALLERY · 01</div>
+      <h2 style="margin: 8px 0 0; font-size: 48px; font-weight: 800; letter-spacing: -.04em">Progression and card states</h2>
+    </div>
+    <p style="margin: 0; max-width: 600px; font-size: 16px; line-height: 1.55; color: #4F655B">Three levels per exercise. Three passed sessions (2 of 3 or better in the test) unlock the next level. Failed sessions never reset progress and levels never go down. No points, no currency.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 13px; font-weight: 800; color: #55695F">NEW</div>
+      <div style="display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 22px; background: #FFFFFF; border: 1px solid #DCE3DD">
+        <dc-import name="ExPreview" ex="map" scale="{{ 0.84 }}" hint-size="101px,71px"></dc-import>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; justify-content: space-between"><span style="font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #5B4691">05 · MEMORY</span><span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #F8EAC7; color: #8B6121">New</span></span><span style="font-size: 16px; font-weight: 800">Memory Map</span><span style="display: flex; gap: 4px"><span style="flex: 1; height: 5px; border-radius: 99px; background: #DCF0E5"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span></span><span style="font-size: 11px; font-weight: 700; color: #55695F">Level 1 · not started</span></span>
+      </div>
+      <div style="font-size: 13px; line-height: 1.5; color: #4F655B">Gold “New” tag until the first session. Level 1 track is tinted, nothing filled.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 13px; font-weight: 800; color: #55695F">STARTED</div>
+      <div style="display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 22px; background: #FFFFFF; border: 1px solid #DCE3DD">
+        <dc-import name="ExPreview" ex="read" scale="{{ 0.84 }}" hint-size="101px,71px"></dc-import>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; justify-content: space-between"><span style="font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #106350">01 · READING</span><span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #DCF0E5; color: #106350">Level 2</span></span><span style="font-size: 16px; font-weight: 800">Read &amp; Check</span><span style="display: flex; gap: 4px"><span style="flex: 1; height: 5px; border-radius: 99px; background: #16846C"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #DCF0E5; overflow: hidden"><span style="display: block; width: 67%; height: 100%; background: #16846C"></span></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span></span><span style="font-size: 11px; font-weight: 700; color: #55695F">Level 2 · 2 of 3 sessions passed</span></span>
+      </div>
+      <div style="font-size: 13px; line-height: 1.5; color: #4F655B">Done levels are solid green. The current level fills by thirds.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 13px; font-weight: 800; color: #55695F">MASTERED</div>
+      <div style="display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 22px; background: #FFFFFF; border: 1px solid #DCE3DD">
+        <dc-import name="ExPreview" ex="hunter" scale="{{ 0.84 }}" hint-size="101px,71px"></dc-import>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; justify-content: space-between"><span style="font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #974E3D">04 · COMPR.</span><span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #16846C; color: #FFFFFF">Mastered</span></span><span style="font-size: 16px; font-weight: 800">Info Hunter</span><span style="display: flex; gap: 4px"><span style="flex: 1; height: 5px; border-radius: 99px; background: #16846C"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #16846C"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #16846C"></span></span><span style="font-size: 11px; font-weight: 700; color: #55695F">All 3 levels passed</span></span>
+      </div>
+      <div style="font-size: 13px; line-height: 1.5; color: #4F655B">Still playable for practice. Sessions keep counting in Progress.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 13px; font-weight: 800; color: #55695F">LOCKED (06 to 08)</div>
+      <div style="display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 22px; background: rgba(255,255,255,.6); border: 1px solid #DCE3DD">
+        <dc-import name="ExPreview" ex="fading" scale="{{ 0.84 }}" locked="{{ true }}" hint-size="101px,71px"></dc-import>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; justify-content: space-between"><span style="font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #106350">06 · READING</span><span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #E6ECE4; color: #4F655B">Soon</span></span><span style="font-size: 16px; font-weight: 800">Fading Text</span><span style="display: flex; gap: 4px"><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span><span style="flex: 1; height: 5px; border-radius: 99px; background: #E6ECE4"></span></span><span style="font-size: 11px; font-weight: 700; color: #55695F">Locked in the app · preview here</span></span>
+      </div>
+      <div style="font-size: 13px; line-height: 1.5; color: #4F655B">Greyed preview with a lock. In the app the card opens nothing; here it links to the design preview.</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; flex: 1; min-height: 0">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 26px; padding: 30px; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; justify-content: space-between; align-items: center"><div style="font-size: 18px; font-weight: 800">Level unlock, live</div><span style="font-size: 13px; font-weight: 700; color: #55695F">Phrase Wave</span></div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{tiles}}" as="t" hint-placeholder-count="3">
+          <div style="{{t.box}}">
+            <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 800">Level {{t.n}}</span><span style="font-size: 12px; font-weight: 800; color: {{t.tagInk}}">{{t.tag}}</span></div>
+            <div style="height: 8px; border-radius: 99px; background: {{t.track}}; overflow: hidden"><span style="{{t.fill}}"></span></div>
+            <div style="display: flex; gap: 6px"><sc-for list="{{t.dots}}" as="d" hint-placeholder-count="3"><span style="{{d}}"></span></sc-for></div>
+            <div style="font-size: 12px; line-height: 1.4; color: #4F655B">{{t.desc}}</div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+        <div style="{{toastStyle}}">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EDBD60" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="3"></rect><path d="M8 11V8a4 4 0 0 1 8 0" style="transform-box: fill-box; transform-origin: 100% 100%; animation: g-shack .4s .25s cubic-bezier(.34,1.56,.64,1) both"></path></svg>
+          <span style="font-size: 15px; font-weight: 800">{{toastText}}</span>
+        </div>
+      </sc-if>
+      <div style="display: flex; gap: 12px; margin-top: auto">
+        <button type="button" onClick="{{pass}}" style="flex: 1; min-height: 54px; border-radius: 16px; border: 0; background: #16846C; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer">Simulate a passed session</button>
+        <button type="button" onClick="{{fail}}" style="min-height: 54px; padding: 0 18px; border-radius: 16px; border: 1px solid #E9D6CE; background: #FCECE6; color: #974E3D; font-size: 15px; font-weight: 800; cursor: pointer">Failed session</button>
+        <button type="button" onClick="{{reset}}" style="min-height: 54px; padding: 0 18px; border-radius: 16px; border: 1px solid #DCE3DD; background: #FFFFFF; color: #163B34; font-size: 15px; font-weight: 800; cursor: pointer">Reset</button>
+      </div>
+      <div style="font-size: 13px; font-weight: 700; color: #55695F">{{log}}</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 26px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-size: 18px; font-weight: 800">Two taps to start</div>
+        <div style="display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 700">
+          <span style="padding: 10px 14px; border-radius: 14px; background: #DCF0E5; color: #106350">1 · tap the card</span><span aria-hidden="true">→</span>
+          <span style="padding: 10px 14px; border-radius: 14px; background: #DCF0E5; color: #106350">2 · Start Level 2</span><span aria-hidden="true">→</span>
+          <span style="padding: 10px 14px; border-radius: 14px; background: #163B34; color: #FFFFFF">exercise</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4F655B">The intro preselects the current level, so returning users just tap Start. Lower levels stay one tap away for practice. Today's plan starts a session in one tap.</p>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 26px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+        <div style="font-size: 18px; font-weight: 800">Shared element</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4F655B">The card's miniature grows into the intro hero (360 ms spring, from the card's position), then the reading surface replaces it. Back reverses the morph. Reduced motion: a 150 ms crossfade.</p>
+      </div>
+      <div style="background: #163B34; color: #FFFFFF; border-radius: 26px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+        <div style="font-size: 18px; font-weight: 800">Every round ends the same way</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #CFE6DB">Exercise → comprehension test → result. The test decides if the session counts towards the level.</p>
+        <div style="display: flex; gap: 10px"><a href="Test.dc.html" style="color: #8ACFB2; font-weight: 800; font-size: 14px">Open the test</a><a href="Exercises.dc.html" style="color: #8ACFB2; font-weight: 800; font-size: 14px">Open the catalogue</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lv: 2, passed: 2, toast: null, n: 0, log: 'Level 2, 2 of 3 passed. One more pass unlocks Level 3.' };
+  }
+  componentWillUnmount() { clearTimeout(this.tt); }
+  renderVals() {
+    const s = this.state;
+    const mastered = s.lv > 3;
+    const descs = ['Short phrases', 'Longer phrases', 'Every second phrase'];
+    const dot = (on, fresh) => 'width: 10px; height: 10px; border-radius: 99px; background: ' + (on ? '#16846C' : '#DCE3DD') + ';' + (fresh ? ' animation: g-dot .4s cubic-bezier(.34,1.56,.64,1);' : '');
+    return {
+      tiles: [1, 2, 3].map((n) => {
+        const done = mastered || n < s.lv;
+        const cur = !mastered && n === s.lv;
+        const locked = !mastered && n > s.lv;
+        const p = done ? 3 : cur ? s.passed : 0;
+        return {
+          n, desc: descs[n - 1],
+          tag: done ? 'Passed' : cur ? 'Current' : 'Locked',
+          tagInk: done ? '#106350' : cur ? '#163B34' : '#55695F',
+          box: 'border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: background .3s, border-color .3s; ' + (cur ? 'background: #FFFFFF; border: 2px solid #16846C;' : locked ? 'background: #F1F3EF; border: 2px solid transparent;' : 'background: #EEF8F3; border: 2px solid transparent;'),
+          track: locked ? '#E6ECE4' : '#DCF0E5',
+          fill: 'display: block; height: 100%; border-radius: 99px; background: #16846C; transform-origin: left; transition: width .6s cubic-bezier(.34,1.2,.64,1); width: ' + Math.round(p / 3 * 100) + '%;',
+          dots: [1, 2, 3].map((k) => dot(k <= p, cur && k === s.passed && s.n > 0)),
+        };
+      }),
+      toast: !!s.toast,
+      toastText: s.toast || '',
+      toastStyle: 'display: flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 16px; background: #163B34; color: #FFFFFF; animation: g-unlock .45s cubic-bezier(.34,1.56,.64,1) both;',
+      pass: () => {
+        if (this.state.lv > 3) return;
+        const p = this.state.passed + 1;
+        if (p >= 3) {
+          const nl = this.state.lv + 1;
+          this.setState({ passed: 3, n: this.state.n + 1 });
+          clearTimeout(this.tt);
+          this.tt = setTimeout(() => this.setState({ lv: nl, passed: 0, toast: nl > 3 ? 'Phrase Wave mastered' : 'Level ' + nl + ' unlocked', log: nl > 3 ? 'All levels passed. The card now shows Mastered.' : 'Level ' + nl + ' unlocked. Progress starts at 0 of 3.' }), 650);
+        } else this.setState({ passed: p, n: this.state.n + 1, toast: null, log: 'Passed. Level ' + this.state.lv + ', ' + p + ' of 3.' });
+      },
+      fail: () => this.setState({ toast: null, log: 'Not passed (below 2/3). Progress stays at ' + this.state.passed + ' of 3, nothing is lost.' }),
+      reset: () => this.setState({ lv: 1, passed: 0, toast: null, n: 0, log: 'Level 1, 0 of 3 passed.' }),
+      log: s.log,
+    };
+  }
+}
+</script>
+</body>
+</html>

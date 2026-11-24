@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Associations preview</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes as-reveal{from{opacity:0;transform:perspective(600px) rotateY(-70deg) scale(.95)}to{opacity:1;transform:none}}
+@keyframes as-back{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes as-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+@keyframes as-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center">
+    <a href="GalleryB.dc.html" aria-label="Back to the gallery" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <div style="text-align: center"><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #8B6121">PREVIEW · LOCKED IN APP</div><div style="font-size: 17px; font-weight: 800">Associations</div></div>
+    <span style="width: 44px"></span>
+  </div>
+  <div style="position: absolute; left: 22px; right: 22px; top: 110px; display: flex; gap: 6px">
+    <sc-for list="{{phases}}" as="p" hint-placeholder-count="3"><span style="{{p.style}}">{{p.label}}</span></sc-for>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 150px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+      <div style="{{c.card}}">
+        <div style="position: relative; height: 118px; background: {{c.bg}}; overflow: hidden">
+          <div style="{{c.imgStyle}}">
+            <sc-if value="{{c.isLight}}" hint-placeholder-val="{{ true }}">
+              <svg role="img" aria-label="Lighthouse at night" width="100%" height="118" viewBox="0 0 160 118" preserveAspectRatio="xMidYMid slice"><polygon points="84,38 160,10 160,58" fill="rgba(237,189,96,.28)"></polygon><path d="M0 98 Q20 92 40 98 T80 98 T120 98 T160 98 V118 H0Z" fill="#2D3D5F"></path><path d="M70 98 L74 44 H90 L94 98Z" fill="#F7F5EE"></path><rect x="72" y="62" width="20" height="9" fill="#B4533F"></rect><rect x="72" y="80" width="21" height="8" fill="#B4533F"></rect><rect x="73" y="32" width="18" height="12" rx="2" fill="#EDBD60"></rect><path d="M70 32 L82 22 L94 32Z" fill="#B4533F"></path><circle cx="128" cy="24" r="1.5" fill="#F7F5EE"></circle><circle cx="22" cy="18" r="1.2" fill="#F7F5EE"></circle><circle cx="40" cy="40" r="1" fill="#F7F5EE"></circle></svg>
+            </sc-if>
+            <sc-if value="{{c.isKey}}" hint-placeholder-val="{{ false }}">
+              <svg role="img" aria-label="Brass key" width="100%" height="118" viewBox="0 0 160 118" preserveAspectRatio="xMidYMid slice"><circle cx="58" cy="59" r="22" fill="none" stroke="#EDBD60" stroke-width="9"></circle><rect x="78" y="54" width="56" height="10" rx="3" fill="#EDBD60"></rect><rect x="112" y="64" width="8" height="14" fill="#EDBD60"></rect><rect x="124" y="64" width="8" height="10" fill="#EDBD60"></rect><circle cx="58" cy="59" r="7" fill="#8872CA"></circle></svg>
+            </sc-if>
+            <sc-if value="{{c.isCompass}}" hint-placeholder-val="{{ false }}">
+              <svg role="img" aria-label="Compass" width="100%" height="118" viewBox="0 0 160 118" preserveAspectRatio="xMidYMid slice"><circle cx="80" cy="59" r="40" fill="none" stroke="#DCF0E5" stroke-width="4"></circle><circle cx="80" cy="59" r="32" fill="none" stroke="#4FB893" stroke-width="1.5" stroke-dasharray="2 5"></circle><path d="M80 27 L88 59 L80 91 L72 59Z" fill="#F7F5EE"></path><path d="M80 27 L88 59 L72 59Z" fill="#E68A73"></path><circle cx="80" cy="59" r="4" fill="#163B34"></circle></svg>
+            </sc-if>
+            <sc-if value="{{c.isGlass}}" hint-placeholder-val="{{ false }}">
+              <svg role="img" aria-label="Hourglass" width="100%" height="118" viewBox="0 0 160 118" preserveAspectRatio="xMidYMid slice"><rect x="54" y="14" width="52" height="7" rx="2" fill="#F8EAC7"></rect><rect x="54" y="97" width="52" height="7" rx="2" fill="#F8EAC7"></rect><path d="M60 21 C60 46 76 52 80 59 C84 52 100 46 100 21Z" fill="none" stroke="#F8EAC7" stroke-width="2.5"></path><path d="M60 97 C60 72 76 66 80 59 C84 66 100 72 100 97Z" fill="none" stroke="#F8EAC7" stroke-width="2.5"></path><path d="M70 36 C72 46 78 50 80 56 C82 50 88 46 90 36Z" fill="#EDBD60"></path><path d="M66 97 C68 86 76 82 80 80 C84 82 92 86 94 97Z" fill="#EDBD60"></path><rect x="79" y="58" width="2" height="22" fill="#EDBD60"></rect></svg>
+            </sc-if>
+          </div>
+          <sc-if value="{{c.hidden}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; color: rgba(255,255,255,.55)">?</span></sc-if>
+        </div>
+        <div style="padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; min-height: 22px">
+          <span style="font-size: 12px; font-weight: 700; color: #55695F">{{c.name}}</span>
+          <span style="{{c.wordStyle}}">{{c.wordShown}}</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{learning}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 14px; line-height: 1.5; font-weight: 600; color: #4F655B">Link each picture with its word. Picture the two together for a moment.</div>
+      <button type="button" onClick="{{startRecall}}" style="min-height: 56px; border-radius: 18px; border: 0; background: #5B4691; color: #FFFFFF; font-size: 17px; font-weight: 800; cursor: pointer">I remember them</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{recalling}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 10px; animation: as-in .35s both">
+      <div style="font-size: 17px; font-weight: 800">{{question}}</div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{options}}" as="o" hint-placeholder-count="4"><button type="button" onClick="{{o.pick}}" style="{{o.style}}">{{o.label}}</button></sc-for>
+      </div>
+      <div style="font-size: 12px; font-weight: 700; color: #55695F">{{recallInfo}}</div>
+    </div>
+  </sc-if>
+  <sc-if value="{{reviewing}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 10px; animation: as-in .4s .6s both">
+      <div style="border-radius: 18px; padding: 12px 14px; background: #EDE8FA; font-size: 14px; font-weight: 700; color: #5B4691">4 of 4 remembered · {{misses}} wrong on the way</div>
+      <button type="button" onClick="{{restart}}" style="min-height: 56px; border-radius: 18px; border: 0; background: #163B34; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer">Study a new set</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { phase: 'learn', q: 0, got: [], wrong: null, misses: 0, run: 0 };
+    this.n = 0;
+  }
+  renderVals() {
+    const s = this.state;
+    const C = [
+      { kind: 'light', name: 'Lighthouse', word: 'Warning', bg: '#1F2A44' },
+      { kind: 'key', name: 'Brass key', word: 'Access', bg: '#2D2350' },
+      { kind: 'compass', name: 'Compass', word: 'Direction', bg: '#163B34' },
+      { kind: 'glass', name: 'Hourglass', word: 'Deadline', bg: '#5C3B2E' },
+    ];
+    const order = [2, 0, 3, 1];
+    const words = ['Direction', 'Deadline', 'Warning', 'Access'];
+    const target = order[s.q];
+    const learn = s.phase === 'learn', recall = s.phase === 'recall', review = s.phase === 'review';
+    return {
+      phases: [['learn', '1 Learn'], ['recall', '2 Recall'], ['review', '3 Review']].map(([k, l]) => ({ label: l, style: 'flex: 1; text-align: center; font-size: 12px; font-weight: 800; padding: 7px 0; border-radius: 99px; transition: background .3s, color .3s; ' + (s.phase === k ? 'background: #5B4691; color: #FFFFFF;' : 'background: #EBEFE9; color: #4F655B;') })),
+      cards: C.map((c, i) => {
+        const got = s.got.indexOf(i) >= 0;
+        const hidden = recall && !got;
+        const isTarget = recall && i === target;
+        const bad = s.wrong && isTarget;
+        return {
+          ...c,
+          isLight: c.kind === 'light', isKey: c.kind === 'key', isCompass: c.kind === 'compass', isGlass: c.kind === 'glass',
+          hidden,
+          imgStyle: 'position: absolute; inset: 0; transition: opacity 1.2s ease ' + (i * 0.25).toFixed(2) + 's; opacity: ' + (hidden ? '0' : '1') + ';',
+          wordShown: learn || got || review ? c.word : '·  ·  ·',
+          wordStyle: 'font-size: 14px; font-weight: 800; color: ' + (got && !learn ? '#106350' : '#163B34') + ';',
+          card: 'border-radius: 20px; overflow: hidden; background: #FFFFFF; transition: box-shadow .3s, border-color .3s; border: 2px solid ' + (isTarget ? '#8872CA' : got && recall ? '#16846C' : '#DCE3DD') + '; ' +
+            (learn ? 'animation: as-reveal .55s ' + (0.1 + i * 0.12).toFixed(2) + 's cubic-bezier(.2,.8,.2,1) both;' : review ? 'animation: as-back .45s ' + (i * 0.12).toFixed(2) + 's cubic-bezier(.34,1.56,.64,1) both;' : bad ? 'animation: as-shake .4s;' : got ? 'animation: as-back .4s cubic-bezier(.34,1.56,.64,1);' : '') +
+            (isTarget ? ' box-shadow: 0 10px 24px rgba(91,70,145,.22);' : ''),
+        };
+      }),
+      learning: learn, recalling: recall, reviewing: review,
+      startRecall: () => this.setState({ phase: 'recall', q: 0, got: [], misses: 0 }),
+      question: recall ? 'Which word went with the ' + C[target].name.toLowerCase() + '?' : '',
+      options: words.map((w) => {
+        const isBad = s.wrong && s.wrong.w === w;
+        return {
+          label: w,
+          pick: () => {
+            if (!recall) return;
+            if (C[target].word === w) {
+              const got = [...this.state.got, target];
+              if (this.state.q + 1 >= order.length) this.setState({ got, phase: 'review', wrong: null });
+              else this.setState({ got, q: this.state.q + 1, wrong: null });
+            } else { this.n += 1; this.setState({ wrong: { w, n: this.n }, misses: this.state.misses + 1 }); }
+          },
+          style: 'min-height: 48px; border-radius: 14px; font-size: 15px; font-weight: 800; cursor: pointer; transition: background .2s, border-color .2s; ' + (isBad ? 'background: #FCECE6; border: 2px solid #B4533F; color: #974E3D; animation: as-shake .35s;' : 'background: #FFFFFF; border: 2px solid #DCE3DD; color: #163B34;'),
+        };
+      }),
+      recallInfo: 'Picture ' + (s.q + 1) + ' of 4 · the images fade so you recall from memory',
+      misses: s.misses,
+      restart: () => this.setState({ phase: 'learn', q: 0, got: [], wrong: null, misses: 0 }),
+    };
+  }
+}
+</script>
+</body>
+</html>

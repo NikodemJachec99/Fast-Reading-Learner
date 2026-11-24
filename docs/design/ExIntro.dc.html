@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exercise intro component</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 16px; right: 16px; top: 56px; display: flex; justify-content: space-between; align-items: center">
+    <a href="Exercises.dc.html" aria-label="Back to Exercises" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <span style="font-size: 13px; font-weight: 800; color: #55695F">Exercise {{num}}</span>
+    <span style="width: 44px"></span>
+  </div>
+
+  <div style="position: absolute; left: 39px; top: 112px; width: 312px; height: 218px; border-radius: 26px; overflow: hidden; box-shadow: 0 1px 2px rgba(22,59,52,.06), 0 12px 28px rgba(22,59,52,.12); transform-origin: 20% 0; animation: ix-grow .55s cubic-bezier(.34,1.2,.64,1) both">
+    <dc-import name="ExPreview" ex="{{ex}}" scale="{{ 2.6 }}" locked="{{ false }}" hint-size="312px,218px"></dc-import>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 346px; display: flex; flex-direction: column; gap: 6px; animation: ix-rise .45s .12s cubic-bezier(.2,.8,.2,1) both">
+    <span style="{{catStyle}}">{{cat}}</span>
+    <h1 style="margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -.035em">{{title}}</h1>
+    <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4F655B">{{purpose}}</p>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 470px; display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 18px; background: #FFFFFF; border: 1px solid #DCE3DD; animation: ix-rise .45s .18s cubic-bezier(.2,.8,.2,1) both">
+    <dc-import name="PikoMark" mood="calm" size="44" hint-size="44px,48px"></dc-import>
+    <span style="font-size: 14px; line-height: 1.45; font-weight: 700">{{how}}</span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 556px; display: flex; flex-direction: column; gap: 8px; animation: ix-rise .45s .24s cubic-bezier(.2,.8,.2,1) both">
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 14px; font-weight: 800">Difficulty</span><span style="font-size: 12px; font-weight: 700; color: #55695F">{{progressText}}</span></div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{levels}}" as="l" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}" style="{{l.style}}">
+          <span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 12px; font-weight: 800">Level {{l.n}}</span>
+            <sc-if value="{{l.done}}" hint-placeholder-val="{{ false }}"><svg aria-label="passed" role="img" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16846C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></sc-if>
+            <sc-if value="{{l.locked}}" hint-placeholder-val="{{ false }}"><svg aria-label="locked" role="img" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#55695F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="3"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></sc-if>
+          </span>
+          <span style="display: flex; gap: 3px; margin-top: 6px" aria-hidden="true"><span style="{{l.d1}}"></span><span style="{{l.d2}}"></span><span style="{{l.d3}}"></span></span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="{{descStyle}}">{{desc}}</div>
+  </div>
+
+  <a href="{{href}}" style="{{cta}}">{{ctaLabel}}</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ex":{"editor":"enum","options":["read","wave","bridges","hunter","map","fading","shorten","assoc"],"default":"wave"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { pick: null, nudge: 0 };
+  }
+  renderVals() {
+    const ex = this.props.ex ?? 'wave';
+    const D = {
+      read: { num: '01', cat: 'READING', key: 'reading', title: 'Read & Check', purpose: 'Measure your natural reading speed and how much you understood.', how: 'Read the whole text at your own pace. Tap Finish at the end.', levels: ['About 150 words, one simple topic.', 'About 250 words with more details.', 'About 400 words and inference questions.'], lv: 2, passed: 2, href: 'ReadCheck.dc.html' },
+      wave: { num: '02', cat: 'READING', key: 'reading', title: 'Phrase Wave', purpose: 'Build a steady reading rhythm with guided phrases.', how: 'Follow the green highlight. Don’t go back. Change the tempo any time.', levels: ['Short phrases of 2 to 3 words.', 'Longer phrases of 4 to 6 words.', 'Only every second phrase is highlighted.'], lv: 3, passed: 1, href: 'PhraseWave.dc.html' },
+      bridges: { num: '03', cat: 'COMPREHENSION', key: 'comprehension', title: 'Meaning Bridges', purpose: 'See how ideas in a text depend on each other.', how: 'Drag from a left card to its partner, or tap both cards.', levels: ['Relationship labels are shown.', 'No labels, only the concepts.', 'Extra cards that do not belong.'], lv: 1, passed: 1, href: 'MeaningBridges.dc.html' },
+      hunter: { num: '04', cat: 'COMPREHENSION', key: 'comprehension', title: 'Info Hunter', purpose: 'Scan a document and find one fact fast.', how: 'Read the goal, then tap the exact words in the text.', levels: ['Short passages.', 'Longer passages.', 'Similar but wrong facts hidden in the text.'], lv: 3, passed: 3, mastered: true, href: 'InfoHunter.dc.html' },
+      map: { num: '05', cat: 'MEMORY', key: 'memory', title: 'Memory Map', purpose: 'Rebuild the main ideas of a text from memory.', how: 'Drag each idea onto its branch, or tap an idea, then a branch.', levels: ['Branches show a hint.', 'No hints.', 'Extra ideas in the word bank.'], lv: 1, passed: 0, href: 'MemoryMap.dc.html' },
+      fading: { num: '06', cat: 'READING', key: 'reading', title: 'Fading Text', purpose: 'Keep reading forward while letters fade behind you.', how: 'Preview only. Locked in the app for now.', levels: ['Slow fade.', 'Fade follows your tempo.', 'Fade starts ahead of you.'], lv: 1, passed: 0, locked: true, href: 'Fading.dc.html' },
+      shorten: { num: '07', cat: 'COMPREHENSION', key: 'comprehension', title: 'Shorten the Paragraph', purpose: 'Pick the sentences that carry the meaning.', how: 'Preview only. Locked in the app for now.', levels: ['One paragraph.', 'Two paragraphs.', 'Near-duplicate sentences.'], lv: 1, passed: 0, locked: true, href: 'Shorten.dc.html' },
+      assoc: { num: '08', cat: 'MEMORY', key: 'memory', title: 'Associations', purpose: 'Remember facts through images.', how: 'Preview only. Locked in the app for now.', levels: ['Four pairs.', 'Six pairs.', 'Six pairs, shorter study time.'], lv: 1, passed: 0, locked: true, href: 'Associations.dc.html' },
+    };
+    const d = D[ex] || D.wave;
+    const inks = { reading: '#106350', comprehension: '#974E3D', memory: '#5B4691' };
+    const sel = this.state.pick ?? d.lv;
+    const lockedTap = this.state.nudge;
+    const dot = (on) => 'width: 6px; height: 6px; border-radius: 99px; background: ' + (on ? '#16846C' : '#DCE3DD') + ';';
+    const levels = [1, 2, 3].map((n) => {
+      const done = !d.locked && (d.mastered || n < d.lv);
+      const current = !d.locked && !d.mastered && n === d.lv;
+      const locked = d.locked || (!d.mastered && n > d.lv);
+      const passedHere = done ? 3 : current ? d.passed : 0;
+      const on = sel === n;
+      return {
+        n, done, locked,
+        pressed: on ? 'true' : 'false',
+        pick: () => locked ? this.setState({ nudge: n + this.state.nudge * 10 }) : this.setState({ pick: n, nudge: 0 }),
+        d1: dot(passedHere >= 1), d2: dot(passedHere >= 2), d3: dot(passedHere >= 3),
+        style: 'display: flex; flex-direction: column; align-items: flex-start; min-height: 58px; padding: 10px; border-radius: 16px; cursor: pointer; text-align: left; color: #163B34; transition: border-color .2s, background .2s, transform .25s cubic-bezier(.34,1.56,.64,1); ' +
+          (on ? 'background: #FFFFFF; border: 2px solid #16846C; transform: translateY(-2px);' : locked ? 'background: #EEF1EC; border: 2px solid transparent; color: #55695F;' : 'background: #FFFFFF; border: 2px solid #DCE3DD;') +
+          (locked && lockedTap % 10 === n ? ' animation: ix-shake .4s;' : ''),
+      };
+    });
+    const nudged = lockedTap % 10;
+    const desc = nudged && !d.locked && !d.mastered && nudged > d.lv
+      ? 'Locked. Pass ' + (3 - d.passed) + ' more session' + (3 - d.passed === 1 ? '' : 's') + ' at Level ' + d.lv + ' to unlock.'
+      : d.levels[sel - 1];
+    const ok = !d.locked;
+    return {
+      ex, num: d.num, cat: d.cat, title: d.title, purpose: d.purpose, how: d.how,
+      catStyle: 'font-size: 11px; font-weight: 800; letter-spacing: .12em; color: ' + inks[d.key] + ';',
+      levels,
+      progressText: d.locked ? 'Locked in the app' : d.mastered ? 'All levels passed' : d.passed + ' of 3 sessions passed at Level ' + d.lv,
+      desc,
+      descStyle: 'font-size: 13px; line-height: 1.45; font-weight: 600; padding: 10px 12px; border-radius: 14px; ' + (nudged && desc.indexOf('Locked') === 0 ? 'background: #FCECE6; color: #974E3D;' : 'background: rgba(22,59,52,.05); color: #4F655B;'),
+      href: d.href,
+      ctaLabel: d.locked ? 'Open the design preview' : (d.mastered ? 'Practise Level ' + sel : 'Start Level ' + sel),
+      cta: 'position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; text-decoration: none; font-size: 17px; font-weight: 800; ' +
+        (ok ? 'color: #FFFFFF; background: #16846C; box-shadow: 0 10px 22px rgba(22,132,108,.28);' : 'color: #163B34; background: #FFFFFF; border: 1px solid #DCE3DD;'),
+    };
+  }
+}
+</script>
+</body>
+</html>

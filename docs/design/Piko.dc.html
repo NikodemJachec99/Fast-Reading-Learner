@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piko mascot</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+@keyframes fr-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fr-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes fr-spark{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1000px; box-sizing: border-box; padding: 72px 80px; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div>
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: .16em; color: #106350">BRAND · 07</div>
+      <h2 style="margin: 8px 0 0; font-size: 48px; font-weight: 800; letter-spacing: -.04em">Piko, the guide</h2>
+    </div>
+    <p style="margin: 0; max-width: 600px; font-size: 16px; line-height: 1.55; color: #4F655B">A calm green drop with a gold gem. Piko explains an exercise in one line, reacts to a result and then gets out of the way. Never on a reading surface, never more than one Piko per screen.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="calm" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Calm</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #55695F; font-weight: 600">Today, round intro, empty states</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="happy" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Happy</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #55695F; font-weight: 600">Correct answer, streak kept, onboarding</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="think" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Thinking</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #55695F; font-weight: 600">Recall test, Memory Map hints</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="oops" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Encouraging</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #55695F; font-weight: 600">Test below 2/3, never sad or scolding</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="sleep" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Asleep</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #55695F; font-weight: 600">No history yet, streak paused</div>
+    </div>
+    <div style="background: #163B34; border-radius: 24px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; color: #FFFFFF">
+      <div style="height: 150px; display: flex; align-items: flex-end"><dc-import name="PikoMark" mood="celebrate" size="120" hint-size="120px,131px"></dc-import></div>
+      <div style="font-size: 16px; font-weight: 800">Celebrating</div>
+      <div style="font-size: 13px; line-height: 1.45; text-align: center; color: #CFE6DB; font-weight: 600">Result passed, level up. Once per round.</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; flex: 1; min-height: 0">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 18px">
+      <div style="font-size: 15px; font-weight: 800">App icon</div>
+      <div style="display: flex; gap: 28px; align-items: flex-end">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 160px; height: 160px; border-radius: 36px; background: #163B34; overflow: hidden; position: relative; box-shadow: 0 18px 36px rgba(22,59,52,.28)">
+            <div style="position: absolute; left: 10px; top: 26px"><dc-import name="PikoMark" mood="calm" size="140" motion="{{ false }}" hint-size="140px,153px"></dc-import></div>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #55695F">iOS · full Piko</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 120px; height: 120px; border-radius: 99px; background: #163B34; overflow: hidden; position: relative">
+            <div style="position: absolute; left: 12px; top: 18px"><dc-import name="PikoMark" mood="calm" size="96" motion="{{ false }}" hint-size="96px,105px"></dc-import></div>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #55695F">Android adaptive, safe zone</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 64px; height: 64px; border-radius: 15px; background: #163B34; overflow: hidden; position: relative">
+            <div style="position: absolute; left: 6px; top: 10px"><dc-import name="PikoMark" mood="calm" size="52" motion="{{ false }}" hint-size="52px,57px"></dc-import></div>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #55695F">Small sizes</span>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4F655B">PR #38 ships a close crop where the eyes touch the bottom edge and the mouth is cut. Keep the whole face inside the safe zone so the icon still reads at 29 px and in Android round masks.</p>
+    </div>
+
+    <div style="display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px">
+      <div style="background: #DCF0E5; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #106350">DO</div>
+        <div style="font-size: 15px; line-height: 1.6; font-weight: 600">One line of copy next to Piko, written in Piko's voice: short, warm, specific. "Follow the green highlight. Don't go back."</div>
+        <div style="font-size: 15px; line-height: 1.6; font-weight: 600">Body #16846C, celebration #2FA585, gem #EDBD60, eyes white with ink pupils.</div>
+      </div>
+      <div style="background: #FCECE6; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .14em; color: #974E3D">DON'T</div>
+        <div style="font-size: 15px; line-height: 1.6; font-weight: 600">No Piko over text, no recolouring, no outlines, no speech bubbles with paragraphs, no crying or angry faces.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
