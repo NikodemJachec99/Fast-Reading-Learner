@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Result, not passed</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+@keyframes fr-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fr-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes r-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes r-strike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 60px; display: flex; gap: 14px; align-items: center; animation: r-rise .5s cubic-bezier(.2,.8,.2,1) both">
+    <dc-import name="PikoMark" mood="oops" size="84" hint-size="84px,92px"></dc-import>
+    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #974E3D">PHRASE WAVE · LEVEL 2</div><div style="font-size: 27px; line-height: 1.1; font-weight: 800; letter-spacing: -.03em; margin-top: 4px">Too fast this time.<br>Let's slow down.</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 186px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; animation: r-rise .5s .08s cubic-bezier(.2,.8,.2,1) both">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 22px; padding: 16px"><div style="font-size: 12px; font-weight: 700; color: #55695F">Reading speed</div><div style="position: relative; display: inline-block; font-size: 38px; font-weight: 800; letter-spacing: -.04em; color: #55695F">280<span style="position: absolute; left: -2px; right: -2px; top: 52%; height: 3px; border-radius: 3px; background: #B4533F; transform-origin: left; animation: r-strike .45s .5s cubic-bezier(.65,0,.35,1) both"></span></div><div style="font-size: 13px; font-weight: 800; color: #974E3D">not counted</div></div>
+    <div style="background: #FCECE6; border-radius: 22px; padding: 16px"><div style="font-size: 12px; font-weight: 700; color: #974E3D">Understood</div><div style="font-size: 38px; font-weight: 800; letter-spacing: -.04em">1/3</div><div style="font-size: 13px; font-weight: 800; color: #974E3D">2 needed to pass</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 336px; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 8px; animation: r-rise .5s .16s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 15px; font-weight: 800">Speed only counts when you pass the test</div>
+    <div style="font-size: 14px; line-height: 1.55; color: #4F655B">You missed the cause and the main idea. Last time you passed at 220 wpm, so the next round starts at 240.</div>
+    <div style="display: flex; gap: 8px; margin-top: 4px">
+      <span style="font-size: 12px; font-weight: 800; padding: 6px 10px; border-radius: 99px; background: #FCECE6; color: #974E3D">Cause → effect ✕</span>
+      <span style="font-size: 12px; font-weight: 800; padding: 6px 10px; border-radius: 99px; background: #DCF0E5; color: #106350">Detail ✓</span>
+      <span style="font-size: 12px; font-weight: 800; padding: 6px 10px; border-radius: 99px; background: #FCECE6; color: #974E3D">Main idea ✕</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 520px; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 22px; padding: 16px; display: flex; justify-content: space-between; align-items: center; animation: r-rise .5s .24s cubic-bezier(.2,.8,.2,1) both">
+    <div><div style="font-size: 14px; font-weight: 800">Level progress unchanged</div><div style="font-size: 12px; font-weight: 700; color: #55695F">2 of 3 sessions passed at Level 2</div></div>
+    <div style="display: flex; gap: 4px" aria-hidden="true"><span style="width: 8px; height: 8px; border-radius: 99px; background: #16846C"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: #16846C"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: #DCE3DD"></span></div>
+  </div>
+
+  <a href="PhraseWave.dc.html" style="position: absolute; left: 22px; right: 22px; bottom: 92px; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #16846C; color: #FFFFFF; font-size: 17px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 22px rgba(22,132,108,.28)">Try again at 240 wpm</a>
+  <a href="Test.dc.html" style="position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 15px; font-weight: 800; text-decoration: none; color: #106350">Review answers</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

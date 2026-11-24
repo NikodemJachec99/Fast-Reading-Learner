@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fading Text preview</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes tp-a{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes tp-b{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #FBFAF6; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: #EDF1EC"><span style="display: block; height: 3px; background: #16846C; width: {{pct}}%"></span></div>
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center">
+    <a href="GalleryB.dc.html" aria-label="Back to the gallery" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <div style="text-align: center"><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #8B6121">PREVIEW · LOCKED IN APP</div><div style="font-size: 17px; font-weight: 800">Fading Text</div></div>
+    <span style="width: 44px"></span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 112px; display: flex; justify-content: space-between; align-items: center; min-height: 44px">
+    <label for="rmf" style="font-size: 13px; font-weight: 700; color: #4F655B">Reduced motion: fade word by word</label>
+    <button id="rmf" type="button" role="switch" aria-checked="{{rmOn}}" onClick="{{toggleRm}}" style="{{sw}}"><span style="{{knob}}"></span></button>
+  </div>
+
+  <div style="position: absolute; left: 26px; right: 26px; top: 172px; font-family: Literata, Georgia, serif; font-size: 20px; line-height: 1.8; color: #163B34">
+    <p style="margin: 0"><sc-for list="{{words}}" as="w" hint-placeholder-count="30"><span style="white-space: nowrap"><sc-for list="{{w.ls}}" as="l" hint-placeholder-count="5"><span style="{{l.s}}">{{l.c}}</span></sc-for></span>{{w.sp}}</sc-for></p>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 20px; padding: 10px 12px 10px 16px">
+      <div><div style="font-size: 12px; font-weight: 700; color: #55695F">Fade follows your tempo</div><div style="display: flex; align-items: baseline; gap: 6px"><span style="{{tempoStyle}}">{{wpm}}</span><span style="font-size: 14px; font-weight: 800; color: #55695F">wpm</span></div></div>
+      <div style="display: flex; gap: 8px">
+        <button type="button" aria-label="Slower by 20" onClick="{{slower}}" style="width: 52px; height: 52px; border-radius: 16px; border: 1px solid #DCE3DD; background: #F7F5EE; font-size: 24px; font-weight: 800; color: #163B34; cursor: pointer">−</button>
+        <button type="button" aria-label="Faster by 20" onClick="{{faster}}" style="width: 52px; height: 52px; border-radius: 16px; border: 1px solid #DCE3DD; background: #F7F5EE; font-size: 24px; font-weight: 800; color: #163B34; cursor: pointer">+</button>
+      </div>
+    </div>
+    <button type="button" onClick="{{toggle}}" style="min-height: 56px; border-radius: 18px; border: 0; background: #163B34; color: #FFFFFF; font-size: 17px; font-weight: 800; cursor: pointer">{{toggleLabel}}</button>
+    <div style="font-size: 12px; font-weight: 600; color: #55695F; text-align: center">Letters behind you fade. The layout never moves.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { pos: 0, playing: false, wpm: 200, rm: false, bump: 0 };
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  text() { return 'Every winter the river beside the library freezes for a few weeks. Children skate along the bank, and older readers watch them from the tall windows of the reading room. The librarian keeps a notebook of the first and last day of ice, and after twenty years the pages show a quiet pattern: the winters are getting shorter.'; }
+  tick() {
+    const total = this.text().length;
+    const cps = this.state.wpm * 5.6 / 60;
+    const next = this.state.pos + cps * 0.08;
+    if (next >= total + 20) { clearInterval(this.t); this.setState({ pos: total + 20, playing: false }); return; }
+    this.setState({ pos: next });
+  }
+  renderVals() {
+    const s = this.state;
+    const txt = this.text();
+    const total = txt.length;
+    const parts = txt.split(' ');
+    let idx = 0;
+    const fadeLen = 28;
+    const words = parts.map((w, wi) => {
+      const start = idx;
+      const end = idx + w.length;
+      const wordPassed = s.pos > end + 6;
+      const ls = w.split('').map((c, k) => {
+        const i = start + k;
+        let o = 1;
+        if (s.rm) o = wordPassed ? 0.12 : 1;
+        else if (i < s.pos) o = Math.max(0.1, 1 - (s.pos - i) / fadeLen);
+        return { c, s: 'opacity: ' + o.toFixed(2) + '; transition: opacity ' + (s.rm ? '0s' : '.25s') + ' linear;' };
+      });
+      idx = end + 1;
+      return { ls, sp: wi < parts.length - 1 ? ' ' : '' };
+    });
+    const start = () => { clearInterval(this.t); this.t = setInterval(() => this.tick(), 80); };
+    return {
+      words,
+      pct: Math.min(100, Math.round(s.pos / total * 100)),
+      wpm: s.wpm,
+      tempoStyle: 'display: inline-block; font-size: 34px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; animation: ' + (s.bump % 2 ? 'tp-a' : 'tp-b') + ' .3s cubic-bezier(.34,1.56,.64,1);',
+      slower: () => this.setState({ wpm: Math.max(120, this.state.wpm - 20), bump: this.state.bump + 1 }),
+      faster: () => this.setState({ wpm: Math.min(600, this.state.wpm + 20), bump: this.state.bump + 1 }),
+      toggleLabel: s.playing ? 'Pause' : s.pos <= 0 ? 'Start' : s.pos >= total ? 'Read again' : 'Resume',
+      toggle: () => {
+        if (this.state.playing) { clearInterval(this.t); this.setState({ playing: false }); return; }
+        if (this.state.pos >= total) this.setState({ pos: 0 });
+        this.setState({ playing: true });
+        start();
+      },
+      rmOn: s.rm ? 'true' : 'false',
+      toggleRm: () => this.setState({ rm: !this.state.rm }),
+      sw: 'position: relative; width: 52px; height: 30px; border-radius: 99px; border: 0; cursor: pointer; transition: background .25s; background: ' + (s.rm ? '#16846C' : '#C9D3CB') + ';',
+      knob: 'position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 99px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(22,59,52,.25); transition: transform .3s cubic-bezier(.34,1.56,.64,1); transform: translateX(' + (s.rm ? '22px' : '0') + ');',
+    };
+  }
+}
+</script>
+</body>
+</html>

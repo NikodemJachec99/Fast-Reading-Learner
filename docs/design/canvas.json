@@ -1,0 +1,482 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 960,
+      "title": "Fast Reading · Overview",
+      "page": "foundations"
+    },
+    {
+      "file": "Color.dc.html",
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 1100,
+      "title": "Color",
+      "page": "foundations"
+    },
+    {
+      "file": "Type.dc.html",
+      "x": 3040,
+      "y": 0,
+      "w": 1440,
+      "h": 1100,
+      "title": "Typography",
+      "page": "foundations"
+    },
+    {
+      "file": "Space.dc.html",
+      "x": 0,
+      "y": 1220,
+      "w": 1440,
+      "h": 1040,
+      "title": "Space, radius, materials",
+      "page": "foundations"
+    },
+    {
+      "file": "Icons.dc.html",
+      "x": 1520,
+      "y": 1220,
+      "w": 1440,
+      "h": 900,
+      "title": "Icons",
+      "page": "foundations"
+    },
+    {
+      "file": "Controls.dc.html",
+      "x": 3040,
+      "y": 1220,
+      "w": 1440,
+      "h": 1560,
+      "title": "Controls",
+      "page": "foundations",
+      "is_interactive": true
+    },
+    {
+      "file": "Motion.dc.html",
+      "x": 0,
+      "y": 2400,
+      "w": 1440,
+      "h": 1040,
+      "title": "Motion",
+      "page": "foundations"
+    },
+    {
+      "file": "Piko.dc.html",
+      "x": 1520,
+      "y": 2400,
+      "w": 1440,
+      "h": 1000,
+      "title": "Piko, the mascot",
+      "page": "foundations"
+    },
+    {
+      "file": "PikoMark.dc.html",
+      "x": 3040,
+      "y": 2900,
+      "w": 160,
+      "h": 172,
+      "title": "Component · PikoMark",
+      "page": "foundations"
+    },
+    {
+      "file": "Topology.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1760,
+      "h": 1160,
+      "title": "App topology",
+      "page": "flow"
+    },
+    {
+      "file": "Onboarding.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "01 · Onboarding",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "Today.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "02 · Today",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "Exercises.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "03 · Exercises",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "MyText.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "04 · My Text",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "Progress.dc.html",
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "05 · Progress",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "Settings.dc.html",
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "06 · Settings",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "RoundIntro.dc.html",
+      "x": 0,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "07 · Round intro (from Today)",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "Test.dc.html",
+      "x": 470,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "08 · Comprehension test",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "ResultPass.dc.html",
+      "x": 940,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "09 · Result, passed",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "ResultFail.dc.html",
+      "x": 1410,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "10 · Result, not passed",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "TabBar.dc.html",
+      "x": 1880,
+      "y": 1244,
+      "w": 390,
+      "h": 110,
+      "title": "Component · Liquid Glass tab bar",
+      "page": "screens",
+      "is_interactive": true
+    },
+    {
+      "file": "ReadCheck.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 01 · Read & Check",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "PhraseWave.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 02 · Phrase Wave",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "MeaningBridges.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 03 · Meaning Bridges",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "InfoHunter.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 04 · Info Hunter",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "MemoryMap.dc.html",
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 05 · Memory Map",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Recall.dc.html",
+      "x": 0,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "My Text · Recall test",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Fading.dc.html",
+      "x": 470,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 06 · Fading Text (preview)",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Shorten.dc.html",
+      "x": 940,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 07 · Shorten the Paragraph (preview)",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Associations.dc.html",
+      "x": 1410,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "Ex 08 · Associations (preview)",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Intro01Read.dc.html",
+      "x": 0,
+      "y": 2488,
+      "w": 390,
+      "h": 844,
+      "title": "Intro · Read & Check",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Intro02Wave.dc.html",
+      "x": 470,
+      "y": 2488,
+      "w": 390,
+      "h": 844,
+      "title": "Intro · Phrase Wave",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Intro03Bridges.dc.html",
+      "x": 940,
+      "y": 2488,
+      "w": 390,
+      "h": 844,
+      "title": "Intro · Meaning Bridges",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Intro04Hunter.dc.html",
+      "x": 1410,
+      "y": 2488,
+      "w": 390,
+      "h": 844,
+      "title": "Intro · Info Hunter",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "Intro05Map.dc.html",
+      "x": 1880,
+      "y": 2488,
+      "w": 390,
+      "h": 844,
+      "title": "Intro · Memory Map",
+      "page": "exercises",
+      "is_interactive": true
+    },
+    {
+      "file": "GalleryProgress.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1240,
+      "title": "Progression and card states",
+      "page": "gallery",
+      "is_interactive": true
+    },
+    {
+      "file": "GalleryA.dc.html",
+      "x": 1520,
+      "y": 0,
+      "w": 1600,
+      "h": 1240,
+      "title": "Exercises 01 to 04 · states",
+      "page": "gallery",
+      "is_interactive": true
+    },
+    {
+      "file": "GalleryB.dc.html",
+      "x": 3200,
+      "y": 0,
+      "w": 1600,
+      "h": 1240,
+      "title": "Exercises 05 to 08 · states",
+      "page": "gallery",
+      "is_interactive": true
+    },
+    {
+      "file": "ExPreview.dc.html",
+      "x": 0,
+      "y": 1600,
+      "w": 120,
+      "h": 84,
+      "title": "Component · ExPreview",
+      "page": "gallery"
+    },
+    {
+      "file": "ExIntro.dc.html",
+      "x": 240,
+      "y": 1600,
+      "w": 390,
+      "h": 844,
+      "title": "Component · ExIntro",
+      "page": "gallery",
+      "is_interactive": true
+    }
+  ],
+  "annotations": [
+    {
+      "id": "screensMain",
+      "x": 0,
+      "y": -260,
+      "w": 240,
+      "maxW": 2740,
+      "text": "Main screens · tab shell and pushes",
+      "kind": "title1",
+      "page": "screens"
+    },
+    {
+      "id": "screensRound",
+      "x": 0,
+      "y": 984,
+      "w": 240,
+      "maxW": 2270,
+      "text": "The round · intro, test, result",
+      "kind": "title1",
+      "page": "screens"
+    },
+    {
+      "id": "exCore",
+      "x": 0,
+      "y": -260,
+      "w": 240,
+      "maxW": 2270,
+      "text": "Core exercises 01 to 05",
+      "kind": "title1",
+      "page": "exercises"
+    },
+    {
+      "id": "exExt",
+      "x": 0,
+      "y": 984,
+      "w": 240,
+      "maxW": 1800,
+      "text": "Recall test and locked previews 06 to 08",
+      "kind": "title1",
+      "page": "exercises"
+    },
+    {
+      "id": "exIntro",
+      "x": 0,
+      "y": 2228,
+      "w": 240,
+      "maxW": 2270,
+      "text": "Exercise intros · purpose, demo, level",
+      "kind": "title1",
+      "page": "exercises"
+    },
+    {
+      "id": "galComp",
+      "x": 0,
+      "y": 1340,
+      "w": 240,
+      "maxW": 700,
+      "text": "Components",
+      "kind": "title1",
+      "page": "gallery"
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "foundations"
+  },
+  "pages": [
+    {
+      "id": "foundations",
+      "name": "Foundations"
+    },
+    {
+      "id": "flow",
+      "name": "Topology"
+    },
+    {
+      "id": "screens",
+      "name": "Screens"
+    },
+    {
+      "id": "exercises",
+      "name": "Exercises"
+    },
+    {
+      "id": "gallery",
+      "name": "Exercise gallery"
+    }
+  ]
+}

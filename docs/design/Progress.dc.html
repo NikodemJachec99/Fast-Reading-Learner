@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Progress</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fr-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes fr-growA{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes fr-growB{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 58px; display: flex; justify-content: space-between; align-items: center">
+    <h1 style="margin: 0; font-size: 31px; font-weight: 800; letter-spacing: -.035em">Progress</h1>
+    <div style="position: relative; display: flex; padding: 4px; border-radius: 99px; background: rgba(255,255,255,.58); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 8px 20px rgba(22,59,52,.12)">
+      <span style="{{lens}}"></span>
+      <button type="button" aria-pressed="{{p7}}" onClick="{{pick7}}" style="position: relative; min-height: 36px; width: 76px; border: 0; background: transparent; border-radius: 99px; font-size: 13px; font-weight: 800; cursor: pointer; color: {{c7}}; transition: color .3s">7 days</button>
+      <button type="button" aria-pressed="{{p30}}" onClick="{{pick30}}" style="position: relative; min-height: 36px; width: 76px; border: 0; background: transparent; border-radius: 99px; font-size: 13px; font-weight: 800; cursor: pointer; color: {{c30}}; transition: color .3s">30 days</button>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 122px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 18px; padding: 12px"><div style="font-size: 11px; font-weight: 700; color: #55695F">Avg. speed</div><div style="font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums">{{avg}}</div><div style="font-size: 11px; font-weight: 700; color: #55695F">wpm, passed only</div></div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 18px; padding: 12px"><div style="font-size: 11px; font-weight: 700; color: #55695F">Understood</div><div style="font-size: 23px; font-weight: 800">{{comp}}</div><div style="font-size: 11px; font-weight: 700; color: #55695F">answers</div></div>
+    <div style="background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 18px; padding: 12px"><div style="font-size: 11px; font-weight: 700; color: #55695F">Sessions</div><div style="font-size: 23px; font-weight: 800">{{count}}</div><div style="font-size: 11px; font-weight: 700; color: #55695F">completed</div></div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 222px; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <div style="font-size: 15px; font-weight: 800">Reading speed</div>
+      <div style="font-size: 12px; font-weight: 800; color: #106350; padding: 4px 10px; border-radius: 99px; background: #DCF0E5">{{delta}}</div>
+    </div>
+    <div role="img" aria-label="{{chartLabel}}" style="display: flex; align-items: flex-end; gap: 6px; height: 136px; border-bottom: 1px solid #DCE3DD">
+      <sc-for list="{{bars}}" as="b" hint-placeholder-count="7">
+        <div style="flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px">
+          <span style="font-size: 10px; font-weight: 700; color: #55695F">{{b.v}}</span>
+          <div style="{{b.style}}"></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; gap: 6px">
+      <sc-for list="{{bars}}" as="b" hint-placeholder-count="7"><span style="flex: 1; text-align: center; font-size: 11px; font-weight: 700; color: #55695F">{{b.d}}</span></sc-for>
+    </div>
+    <div style="display: flex; gap: 14px; font-size: 12px; font-weight: 600; color: #4F655B">
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #16846C"></span>test passed</span>
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #E8B4A6"></span>below 2/3, not counted</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 498px; display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #F8EAC7">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B36B12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"></path></svg>
+    <div style="flex: 1; font-size: 14px; font-weight: 700; color: #6B4A12">4-day streak. Best so far: 9 days.</div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 568px; display: flex; flex-direction: column; gap: 8px">
+    <div style="font-size: 16px; font-weight: 800">History</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 16px; padding: 10px 14px"><div><div style="font-size: 14px; font-weight: 800">Phrase Wave · The New Library</div><div style="font-size: 12px; color: #55695F; font-weight: 600">Today, 9:41</div></div><div style="text-align: right"><div style="font-size: 14px; font-weight: 800">236 wpm</div><div style="font-size: 12px; font-weight: 800; color: #106350">3/3</div></div></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 16px; padding: 10px 14px"><div><div style="font-size: 14px; font-weight: 800">Phrase Wave · Bees</div><div style="font-size: 12px; color: #55695F; font-weight: 600">Wednesday</div></div><div style="text-align: right"><div style="font-size: 14px; font-weight: 800; color: #55695F; text-decoration: line-through">240 wpm</div><div style="font-size: 12px; font-weight: 800; color: #974E3D">1/3 not counted</div></div></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 16px; padding: 10px 14px"><div><div style="font-size: 14px; font-weight: 800">Recall · Photosynthesis</div><div style="font-size: 12px; color: #55695F; font-weight: 600">Tuesday · self-rated</div></div><div style="text-align: right"><div style="font-size: 12px; font-weight: 800; color: #5B4691; padding: 4px 9px; border-radius: 99px; background: #EDE8FA">2 yes · 1 partly</div></div></div>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg, rgba(247,245,238,0), rgba(247,245,238,.85) 55%)"></div>
+  <div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 110px">
+    <dc-import name="TabBar" active="progress" hint-size="390px,110px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { range: 7 };
+  }
+  renderVals() {
+    const r = this.state.range;
+    const week = [
+      { d: 'Mon', v: 198, ok: true }, { d: 'Tue', v: 205, ok: true }, { d: 'Wed', v: 240, ok: false },
+      { d: 'Thu', v: 201, ok: true }, { d: 'Fri', v: 220, ok: true }, { d: 'Sat', v: 0, ok: true }, { d: 'Sun', v: 236, ok: true },
+    ];
+    const month = [
+      { d: 'W1', v: 172, ok: true }, { d: 'W2', v: 185, ok: true }, { d: 'W3', v: 204, ok: true }, { d: 'W4', v: 216, ok: true },
+    ];
+    const list = r === 7 ? week : month;
+    const anim = r === 7 ? 'fr-growA' : 'fr-growB';
+    return {
+      lens: 'position: absolute; top: 4px; bottom: 4px; left: 4px; width: 76px; border-radius: 99px; background: linear-gradient(180deg, rgba(47,165,133,.94), rgba(22,132,108,.97)); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 4px 12px rgba(22,132,108,.3); transition: transform .36s cubic-bezier(.34,1.56,.64,1); transform: translateX(' + (r === 7 ? '0' : '76px') + ');',
+      p7: r === 7 ? 'true' : 'false', p30: r === 30 ? 'true' : 'false',
+      c7: r === 7 ? '#FFFFFF' : '#163B34', c30: r === 30 ? '#FFFFFF' : '#163B34',
+      pick7: () => this.setState({ range: 7 }),
+      pick30: () => this.setState({ range: 30 }),
+      avg: r === 7 ? 212 : 194,
+      comp: r === 7 ? '17/18' : '41/45',
+      count: r === 7 ? 6 : 15,
+      delta: r === 7 ? '+38 wpm vs last week' : '+44 wpm vs last month',
+      chartLabel: 'Reading speed: ' + list.map((x) => x.d + ' ' + (x.v || 'no session')).join(', '),
+      bars: list.map((x, i) => ({
+        d: x.d,
+        v: x.v > 0 ? x.v : '–',
+        style: 'width: 100%; transform-origin: bottom; border-radius: 7px 7px 3px 3px; animation: ' + anim + ' .7s ' + (i * 0.05).toFixed(2) + 's cubic-bezier(.34,1.56,.64,1) both; height: ' +
+          (x.v > 0 ? Math.round(x.v / 260 * 104) : 4) + 'px; background: ' + (x.v === 0 ? '#E6ECE4' : (x.ok ? '#16846C' : '#E8B4A6')) + ';',
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

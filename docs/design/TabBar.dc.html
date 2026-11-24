@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Liquid Glass tab bar</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 110px; position: relative; font-family: Manrope, system-ui, sans-serif; color: #163B34">
+  <nav aria-label="Main navigation" style="position: absolute; left: 16px; right: 16px; bottom: 26px; height: 66px; box-sizing: border-box; padding: 5px; border-radius: 99px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; background: rgba(255,255,255,.58); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(22,59,52,.06), 0 14px 32px rgba(22,59,52,.18), 0 2px 6px rgba(22,59,52,.08)">
+    <a href="Today.dc.html" aria-current="{{today.current}}" style="{{today.style}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{today.ink}}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>
+      <span>Today</span>
+    </a>
+    <a href="Exercises.dc.html" aria-current="{{exercises.current}}" style="{{exercises.style}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{exercises.ink}}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
+      <span>Exercises</span>
+    </a>
+    <a href="MyText.dc.html" aria-current="{{mytext.current}}" style="{{mytext.style}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{mytext.ink}}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M9 12h7M9 16h5"></path></svg>
+      <span>My Text</span>
+    </a>
+    <a href="Progress.dc.html" aria-current="{{progress.current}}" style="{{progress.style}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{progress.ink}}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>
+      <span>Progress</span>
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["today","exercises","mytext","progress"],"default":"today"},"$preview":{"width":390,"height":110}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const active = this.props.active ?? 'today';
+    const base = 'display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 99px; text-decoration: none; font-size: 11px; font-weight: 800; min-height: 44px; transition: background .3s, color .3s; ';
+    const item = (key) => {
+      const on = key === active;
+      return {
+        current: on ? 'page' : 'false',
+        ink: on ? '#FFFFFF' : '#4F655B',
+        style: base + (on
+          ? 'color: #FFFFFF; background: linear-gradient(180deg, rgba(47,165,133,.94), rgba(22,132,108,.97)); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 6px 14px rgba(22,132,108,.35); animation: fr-pop .45s cubic-bezier(.34,1.56,.64,1);'
+          : 'color: #4F655B; background: transparent;'),
+      };
+    };
+    return { today: item('today'), exercises: item('exercises'), mytext: item('mytext'), progress: item('progress') };
+  }
+}
+</script>
+</body>
+</html>

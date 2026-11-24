@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piko mascot component</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: {{w}}px; height: {{h}}px; position: relative; animation: {{bob}}">
+  <svg role="img" aria-label="{{label}}" viewBox="0 0 130 142" width="100%" height="100%" style="display: block; overflow: visible">
+    <ellipse cx="65" cy="135" rx="34" ry="5.5" fill="{{shadow}}"></ellipse>
+    <path d="M66 12 C87 6 107 25 111 46 C121 65 111 93 95 110 C78 126 52 123 36 111 C18 99 13 76 24 54 C34 33 46 21 66 12Z" fill="{{body}}"></path>
+    <sc-if value="{{armsDown}}" hint-placeholder-val="{{ true }}">
+      <path d="M23 64 C7 67 8 84 15 90 M108 68 C122 65 126 82 119 91" fill="none" stroke="{{body}}" stroke-width="8" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{armsUp}}" hint-placeholder-val="{{ false }}">
+      <path d="M23 64 C7 55 6 40 14 34 M108 68 C124 58 126 42 118 35" fill="none" stroke="{{body}}" stroke-width="8" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{armsThink}}" hint-placeholder-val="{{ false }}">
+      <path d="M23 64 C7 67 8 84 15 90 M108 68 C120 82 106 98 90 99" fill="none" stroke="{{body}}" stroke-width="8" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{eyesOpen}}" hint-placeholder-val="{{ true }}">
+      <g style="transform-box: fill-box; transform-origin: center; animation: {{blink}}">
+        <ellipse cx="49" cy="65" rx="12" ry="14" fill="#FFFFFF"></ellipse>
+        <ellipse cx="84" cy="65" rx="12" ry="14" fill="#FFFFFF"></ellipse>
+        <ellipse cx="{{lx}}" cy="{{py}}" rx="4" ry="6" fill="#163B34"></ellipse>
+        <ellipse cx="{{rx}}" cy="{{py}}" rx="4" ry="6" fill="#163B34"></ellipse>
+      </g>
+    </sc-if>
+    <sc-if value="{{eyesClosed}}" hint-placeholder-val="{{ false }}">
+      <path d="M38 66 Q49 74 60 66 M73 66 Q84 74 95 66" fill="none" stroke="#163B34" stroke-width="3.5" stroke-linecap="round"></path>
+      <text x="104" y="30" font-family="Manrope, sans-serif" font-size="20" font-weight="800" fill="#55695F">z</text>
+      <text x="116" y="16" font-family="Manrope, sans-serif" font-size="14" font-weight="800" fill="#55695F">z</text>
+    </sc-if>
+    <sc-if value="{{mouthOpen}}" hint-placeholder-val="{{ false }}">
+      <ellipse cx="66" cy="93" rx="10" ry="8" fill="#163B34"></ellipse>
+      <ellipse cx="66" cy="97" rx="6" ry="3" fill="#E68A73"></ellipse>
+    </sc-if>
+    <sc-if value="{{mouthLine}}" hint-placeholder-val="{{ true }}">
+      <path d="{{mouth}}" fill="none" stroke="#163B34" stroke-width="3.5" stroke-linecap="round"></path>
+    </sc-if>
+    <path d="M66 0 L76 15 L66 28 L56 15 Z" fill="#EDBD60"></path>
+    <sc-if value="{{sparkles}}" hint-placeholder-val="{{ false }}">
+      <path d="M6 22 L10 28 L6 34 L2 28 Z" fill="#EDBD60" style="transform-box: fill-box; transform-origin: center; animation: fr-spark 1.8s ease-in-out infinite"></path>
+      <path d="M122 10 L127 18 L122 26 L117 18 Z" fill="#EDBD60" style="transform-box: fill-box; transform-origin: center; animation: fr-spark 1.8s .5s ease-in-out infinite"></path>
+      <path d="M126 56 L129 61 L126 66 L123 61 Z" fill="#8ACFB2" style="transform-box: fill-box; transform-origin: center; animation: fr-spark 1.8s .9s ease-in-out infinite"></path>
+      <path d="M14 96 L17 101 L14 106 L11 101 Z" fill="#8ACFB2" style="transform-box: fill-box; transform-origin: center; animation: fr-spark 1.8s 1.2s ease-in-out infinite"></path>
+    </sc-if>
+  </svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["calm","happy","think","oops","sleep","celebrate"],"default":"calm"},"size":{"editor":"int","min":24,"max":400,"default":140},"motion":{"editor":"boolean","default":true},"$preview":{"width":160,"height":172}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const mood = this.props.mood ?? 'calm';
+    const size = Number(this.props.size ?? 140);
+    const motion = this.props.motion ?? true;
+    const up = mood === 'happy' || mood === 'celebrate';
+    const pupils = {
+      calm: [52, 81, 68], happy: [52, 81, 66], think: [55, 87, 61],
+      oops: [50, 79, 72], celebrate: [52, 81, 66], sleep: [52, 81, 68],
+    }[mood] || [52, 81, 68];
+    const mouths = {
+      calm: 'M52 88 Q66 100 81 88',
+      happy: 'M50 86 Q66 104 83 86',
+      think: 'M58 93 Q66 95 74 92',
+      oops: 'M55 96 Q66 88 77 96',
+      sleep: 'M62 94 Q66 97 70 94',
+    };
+    const labels = {
+      calm: 'Piko, calm', happy: 'Piko, happy', think: 'Piko, thinking',
+      oops: 'Piko, encouraging after a miss', sleep: 'Piko, asleep', celebrate: 'Piko, celebrating',
+    };
+    return {
+      w: size,
+      h: Math.round(size * 142 / 130),
+      label: labels[mood] || 'Piko',
+      body: up ? '#2FA585' : '#16846C',
+      shadow: 'rgba(22,59,52,.14)',
+      armsUp: up,
+      armsThink: mood === 'think',
+      armsDown: !up && mood !== 'think',
+      eyesOpen: mood !== 'sleep',
+      eyesClosed: mood === 'sleep',
+      lx: pupils[0], rx: pupils[1], py: pupils[2],
+      mouthOpen: mood === 'celebrate',
+      mouthLine: mood !== 'celebrate',
+      mouth: mouths[mood] || mouths.calm,
+      sparkles: mood === 'celebrate',
+      bob: motion ? (up ? 'fr-bob 1.6s cubic-bezier(.45,0,.55,1) infinite' : 'fr-bob 3.4s cubic-bezier(.45,0,.55,1) infinite') : 'none',
+      blink: motion ? 'fr-blink 4.8s infinite' : 'none',
+    };
+  }
+}
+</script>
+</body>
+</html>

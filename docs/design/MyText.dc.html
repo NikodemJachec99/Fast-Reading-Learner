@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My Text</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fr-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 58px; display: flex; flex-direction: column; gap: 4px">
+    <h1 style="margin: 0; font-size: 31px; font-weight: 800; letter-spacing: -.035em">My Text</h1>
+    <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4F655B">Paste notes or an article. Read it, answer from memory, compare with the original.</p>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 156px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .5s cubic-bezier(.2,.8,.2,1) both">
+    <label for="txt" style="font-size: 13px; font-weight: 800">Text to read</label>
+    <textarea id="txt" value="{{text}}" onChange="{{onText}}" placeholder="Paste your text here…" style="height: 188px; box-sizing: border-box; resize: none; border-radius: 20px; border: 1px solid #C9D3CB; background: #FBFAF6; padding: 16px; font-family: Literata, Georgia, serif; font-size: 15px; line-height: 1.6; color: #163B34"></textarea>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700">
+      <span style="{{countStyle}}">{{words}} words{{hint}}</span>
+      <span style="color: #55695F">about {{minutes}} at 220 wpm</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 410px; border-radius: 20px; padding: 14px 16px; background: #EDE8FA; display: flex; gap: 12px; align-items: flex-start; animation: fr-rise .5s .06s cubic-bezier(.2,.8,.2,1) both">
+    <dc-import name="PikoMark" mood="think" size="44" hint-size="44px,48px"></dc-import>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <div style="font-size: 13px; font-weight: 800; color: #4A3880">After reading, Piko asks:</div>
+      <div style="font-size: 14px; line-height: 1.55">1. What was the main idea?<br>2. Name 2 facts.<br>3. Explain one relationship.</div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 548px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .5s .12s cubic-bezier(.2,.8,.2,1) both">
+    <div style="font-size: 16px; font-weight: 800">Saved texts</div>
+    <div style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 16px; padding: 10px 14px">
+      <div style="flex: 1; min-width: 0"><div style="font-size: 14px; font-weight: 800">Note: photosynthesis</div><div style="font-size: 12px; color: #55695F; font-weight: 600">120 words · read twice</div></div>
+      <a href="ReadCheck.dc.html" style="font-size: 14px; font-weight: 800; text-decoration: none; min-height: 44px; display: flex; align-items: center">Read</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #DCE3DD; border-radius: 16px; padding: 10px 14px">
+      <div style="flex: 1; min-width: 0"><div style="font-size: 14px; font-weight: 800">Article: sleep and memory</div><div style="font-size: 12px; color: #55695F; font-weight: 600">640 words · not read yet</div></div>
+      <a href="ReadCheck.dc.html" style="font-size: 14px; font-weight: 800; text-decoration: none; min-height: 44px; display: flex; align-items: center">Read</a>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: linear-gradient(180deg, rgba(247,245,238,0), rgba(247,245,238,.9) 45%)"></div>
+  <a href="ReadCheck.dc.html" aria-disabled="{{disabled}}" style="{{cta}}">Read this text</a>
+  <div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 110px">
+    <dc-import name="TabBar" active="mytext" hint-size="390px,110px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { text: 'Photosynthesis is the process in which plants turn light, water and carbon dioxide into glucose and oxygen. It happens mostly in the leaves, inside small green parts of the cell called chloroplasts. The glucose gives the plant energy to grow, and the oxygen is released into the air. Without it, most life on Earth could not exist.' };
+  }
+  renderVals() {
+    const t = this.state.text || '';
+    const words = t.trim() ? t.trim().split(/\s+/).length : 0;
+    const secs = Math.round(words / 220 * 60);
+    const ok = words >= 50;
+    return {
+      text: t,
+      words,
+      minutes: secs < 60 ? secs + ' s' : Math.round(secs / 60) + ' min',
+      hint: ok ? '' : ' · add ' + (50 - words) + ' more',
+      countStyle: ok ? 'color: #55695F;' : 'color: #974E3D;',
+      onText: (e) => this.setState({ text: e.target.value }),
+      disabled: ok ? 'false' : 'true',
+      cta: 'position: absolute; left: 22px; right: 22px; bottom: 118px; min-height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 18px; text-decoration: none; font-size: 16px; font-weight: 800; transition: background .25s; ' +
+        (ok ? 'color: #FFFFFF; border: 1px solid rgba(255,255,255,.35); background: linear-gradient(180deg, rgba(47,165,133,.94), rgba(22,132,108,.97)); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 12px 24px rgba(22,132,108,.3);'
+            : 'color: #8A9A92; background: #E6ECE4; pointer-events: none;'),
+    };
+  }
+}
+</script>
+</body>
+</html>

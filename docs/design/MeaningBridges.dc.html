@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Meaning Bridges</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes mb-draw{from{stroke-dashoffset:320}to{stroke-dashoffset:0}}
+@keyframes mb-dissolve{0%{opacity:1}60%{opacity:.9}100%{opacity:0}}
+@keyframes mb-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(5px)}50%{transform:translateX(-5px)}75%{transform:translateX(3px)}}
+@keyframes mb-snap{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes mb-pulse{0%,100%{r:5}50%{r:8}}
+@keyframes mb-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mb-glow{0%{stroke-width:3}50%{stroke-width:6}100%{stroke-width:3}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center">
+    <a href="Intro03Bridges.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+    <div style="text-align: center"><div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #974E3D">TRAINING · STEP 1 OF 3</div><div style="font-size: 17px; font-weight: 800">Meaning Bridges</div></div>
+    <span style="font-size: 13px; font-weight: 800; color: #55695F; min-width: 44px; text-align: right">{{count}}/4</span>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 112px; display: flex; gap: 6px; align-items: center">
+    <span style="font-size: 12px; font-weight: 700; color: #55695F; margin-right: 4px">Preview level</span>
+    <sc-for list="{{levels}}" as="l" hint-placeholder-count="3"><button type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}" style="{{l.style}}">{{l.label}}</button></sc-for>
+    <button type="button" onClick="{{togglePassage}}" style="margin-left: auto; min-height: 32px; padding: 0 12px; border-radius: 99px; border: 1px solid #DCE3DD; background: #FFFFFF; font-size: 12px; font-weight: 800; color: #106350; cursor: pointer">Passage</button>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 160px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .12em; color: #55695F"><span>FROM THE TEXT</span><span>WHAT IT LED TO</span></div>
+
+  <div ref="{{setBox}}" onPointerMove="{{move}}" onPointerUp="{{up}}" style="position: absolute; left: 0; top: 184px; width: 390px; height: 430px; touch-action: none">
+    <svg aria-hidden="true" width="390" height="430" viewBox="0 0 390 430" style="position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible">
+      <sc-for list="{{lines}}" as="ln" hint-placeholder-count="0">
+        <path d="{{ln.d}}" fill="none" stroke="{{ln.color}}" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ln.dash}}" style="{{ln.style}}"></path>
+      </sc-for>
+      <sc-if value="{{dragging}}" hint-placeholder-val="{{ false }}">
+        <path d="{{dragD}}" fill="none" stroke="#16846C" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 7" opacity=".75"></path>
+        <circle cx="{{cx}}" cy="{{cy}}" r="7" fill="#16846C" opacity=".9"></circle>
+      </sc-if>
+      <sc-if value="{{tapSel}}" hint-placeholder-val="{{ false }}">
+        <circle cx="{{ax}}" cy="{{ay}}" r="6" fill="#16846C" style="animation: mb-pulse 1.1s ease-in-out infinite"></circle>
+      </sc-if>
+    </svg>
+    <sc-for list="{{left}}" as="c" hint-placeholder-count="4">
+      <button type="button" aria-label="{{c.aria}}" aria-pressed="{{c.pressed}}" onPointerDown="{{c.down}}" style="{{c.style}}">
+        <span style="font-size: 14px; line-height: 1.25; font-weight: 700; text-align: left; color: #163B34">{{c.text}}</span>
+        <sc-if value="{{c.showLabel}}" hint-placeholder-val="{{ false }}"><span style="font-size: 10px; font-weight: 800; letter-spacing: .06em; color: #974E3D; margin-top: 4px">{{c.rel}}</span></sc-if>
+      </button>
+    </sc-for>
+    <sc-for list="{{right}}" as="c" hint-placeholder-count="4">
+      <button type="button" data-r="{{c.r}}" onClick="{{c.tap}}" style="{{c.style}}"><span style="font-size: 14px; line-height: 1.25; font-weight: 700; text-align: left">{{c.text}}</span></button>
+    </sc-for>
+    <sc-for list="{{tags}}" as="t" hint-placeholder-count="0">
+      <span style="{{t.style}}">{{t.text}}</span>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{playingState}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #55695F"><span>{{hint}}</span><span style="{{missStyle}}">{{misses}} missed</span></div>
+      <div style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #E6ECE4; color: #8A9A92; font-size: 16px; font-weight: 800">Connect all 4 to continue</div>
+    </div>
+  </sc-if>
+  <sc-if value="{{complete}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 34px; display: flex; flex-direction: column; gap: 10px; animation: mb-in .45s cubic-bezier(.2,.8,.2,1) both">
+      <div style="border-radius: 18px; padding: 12px 14px; background: #DCF0E5; font-size: 14px; font-weight: 700; color: #106350">All 4 bridges built · {{misses}} missed · exercise score {{score}}%</div>
+      <a href="Test.dc.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #16846C; color: #FFFFFF; font-size: 17px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 22px rgba(22,132,108,.28)">Continue to the test</a>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{showPassage}}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-label="Passage" style="position: absolute; left: 12px; right: 12px; top: 150px; bottom: 120px; border-radius: 26px; background: #FBFAF6; border: 1px solid #DCE3DD; box-shadow: 0 24px 50px rgba(22,59,52,.2); padding: 20px; overflow-y: auto; animation: mb-in .3s both">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px"><span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #55695F">THE NEW LIBRARY</span><button type="button" onClick="{{togglePassage}}" style="min-height: 36px; padding: 0 12px; border-radius: 99px; border: 0; background: #163B34; color: #FFFFFF; font-size: 12px; font-weight: 800; cursor: pointer">Close</button></div>
+      <p style="margin: 0; font-family: Literata, Georgia, serif; font-size: 16px; line-height: 1.7">In 1998 Brena opened its first library in an old warehouse. Before, the nearest one was forty minutes away by bus, and most families owned only a few books. Within a year, loans nearly doubled. The librarian, Ewa Marek, started an evening club so people could talk about the novels they read. When the school ran out of space, it began holding lessons in the library.</p>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { level: 1, sel: null, drag: false, cx: 0, cy: 0, matched: {}, wrong: null, misses: 0, passage: false, shake: null };
+    this.box = null;
+    this.wid = 0;
+  }
+  componentWillUnmount() { clearTimeout(this.wt); }
+  data() {
+    const L = [
+      { text: 'The nearest library was 40 minutes away', rel: 'CAUSE → EFFECT' },
+      { text: 'Brena opened its own library', rel: 'CAUSE → EFFECT' },
+      { text: 'The school ran out of space', rel: 'PROBLEM → SOLUTION' },
+      { text: 'Ewa started an evening club', rel: 'DECISION → REASON' },
+    ];
+    const R = ['Lessons moved into the library', 'Families owned only a few books', 'People could discuss the novels', 'Loans nearly doubled in a year', 'A new bus line was opened'];
+    const answer = { 0: 1, 1: 3, 2: 0, 3: 2 };
+    const relTag = { 0: 'led to', 1: 'led to', 2: 'solved by', 3: 'so that' };
+    return { L, R: this.state.level === 3 ? R : R.slice(0, 4), answer, relTag };
+  }
+  pt(e) {
+    const r = this.box.getBoundingClientRect();
+    const k = r.width / (this.box.offsetWidth || r.width) || 1;
+    return { x: (e.clientX - r.left) / k, y: (e.clientY - r.top) / k };
+  }
+  attempt(l, r) {
+    const { answer } = this.data();
+    if (l === null || l === undefined || this.state.matched[l] !== undefined) return;
+    if (answer[l] === r) {
+      this.setState({ matched: { ...this.state.matched, [l]: r }, sel: null, drag: false });
+    } else {
+      this.wid += 1;
+      this.setState({ wrong: { l, r, id: this.wid }, shake: r + ':' + this.wid, misses: this.state.misses + 1, sel: null, drag: false });
+      clearTimeout(this.wt);
+      this.wt = setTimeout(() => this.setState({ wrong: null }), 650);
+    }
+  }
+  renderVals() {
+    const s = this.state;
+    const { L, R, relTag } = this.data();
+    const rowY = (i) => 8 + i * 84;
+    const LX = 162, RX = 228;
+    const curve = (x1, y1, x2, y2) => 'M ' + x1 + ' ' + y1 + ' C ' + (x1 + 44) + ' ' + y1 + ', ' + (x2 - 44) + ' ' + y2 + ', ' + x2 + ' ' + y2;
+    const usedR = Object.values(s.matched);
+    const lines = [];
+    Object.keys(s.matched).forEach((l) => {
+      const r = s.matched[l];
+      lines.push({ d: curve(LX, rowY(+l) + 34, RX, rowY(r) + 34), color: '#16846C', dash: '320', style: 'animation: mb-draw .5s cubic-bezier(.34,1.2,.64,1) both' + (Object.keys(s.matched).length === 4 ? ', mb-glow .9s .4s ease-in-out;' : ';') });
+    });
+    if (s.wrong) lines.push({ d: curve(LX, rowY(s.wrong.l) + 34, RX, rowY(s.wrong.r) + 34), color: '#B4533F', dash: '320', style: 'animation: mb-dissolve .65s ease-out both;' });
+    const count = Object.keys(s.matched).length;
+    const tags = s.level === 1 ? Object.keys(s.matched).map((l) => {
+      const r = s.matched[l];
+      const my = (rowY(+l) + rowY(r)) / 2 + 34;
+      return { text: relTag[l], style: 'position: absolute; left: ' + (LX + 33 - 28) + 'px; top: ' + (my - 11) + 'px; width: 56px; text-align: center; font-size: 10px; font-weight: 800; padding: 3px 0; border-radius: 99px; background: #FFFFFF; color: #106350; border: 1px solid #16846C; animation: mb-in .3s .25s both;' };
+    }) : [];
+    return {
+      levels: [1, 2, 3].map((n) => ({
+        label: 'L' + n, pressed: s.level === n ? 'true' : 'false',
+        pick: () => this.setState({ level: n, matched: {}, sel: null, drag: false, wrong: null, misses: 0 }),
+        style: 'min-width: 44px; min-height: 32px; border-radius: 99px; font-size: 12px; font-weight: 800; cursor: pointer; ' + (s.level === n ? 'background: #163B34; color: #FFFFFF; border: 1px solid #163B34;' : 'background: #FFFFFF; color: #163B34; border: 1px solid #DCE3DD;'),
+      })),
+      togglePassage: () => this.setState({ passage: !this.state.passage }),
+      showPassage: s.passage,
+      setBox: (el) => { this.box = el; },
+      move: (e) => { if (this.state.drag && this.box) { const p = this.pt(e); this.setState({ cx: p.x, cy: p.y }); } },
+      up: (e) => {
+        if (!this.state.drag) return;
+        const el = document.elementFromPoint(e.clientX, e.clientY);
+        const t = el && el.closest ? el.closest('[data-r]') : null;
+        if (t) this.attempt(this.state.sel, Number(t.getAttribute('data-r')));
+        else this.setState({ drag: false });
+      },
+      lines, tags,
+      dragging: s.drag && s.sel !== null,
+      tapSel: !s.drag && s.sel !== null,
+      dragD: s.sel !== null ? curve(LX, rowY(s.sel) + 34, s.cx, s.cy) : '',
+      cx: s.cx, cy: s.cy,
+      ax: LX, ay: s.sel !== null ? rowY(s.sel) + 34 : 0,
+      left: L.map((c, i) => {
+        const done = s.matched[i] !== undefined;
+        const on = s.sel === i;
+        return {
+          text: c.text, rel: c.rel, showLabel: s.level === 1,
+          aria: c.text + (done ? ', connected' : ''),
+          pressed: on ? 'true' : 'false',
+          down: (e) => { if (done || !this.box) return; const p = this.pt(e); this.setState({ sel: i, drag: true, cx: p.x, cy: p.y }); },
+          style: 'position: absolute; left: 22px; top: ' + rowY(i) + 'px; width: 140px; height: 68px; box-sizing: border-box; padding: 8px 10px; border-radius: 16px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; cursor: grab; touch-action: none; user-select: none; transition: border-color .2s, background .2s, transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .2s; ' +
+            (done ? 'background: #DCF0E5; border: 2px solid #16846C; animation: mb-snap .35s cubic-bezier(.34,1.56,.64,1);' : on ? 'background: #FFFFFF; border: 2px solid #16846C; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(22,59,52,.14);' : 'background: #FFFFFF; border: 2px solid #E9D6CE;'),
+        };
+      }),
+      right: R.map((text, r) => {
+        const done = usedR.indexOf(r) >= 0;
+        const shaking = s.shake && s.shake.split(':')[0] === String(r) && s.wrong;
+        return {
+          text, r,
+          tap: () => { if (!this.state.drag && this.state.sel !== null) this.attempt(this.state.sel, r); },
+          style: 'position: absolute; left: ' + RX + 'px; top: ' + rowY(r) + 'px; width: 140px; height: 68px; box-sizing: border-box; padding: 8px 10px; border-radius: 16px; display: flex; align-items: center; cursor: pointer; color: #163B34; transition: border-color .2s, background .2s; ' +
+            (done ? 'background: #DCF0E5; border: 2px solid #16846C; animation: mb-snap .35s cubic-bezier(.34,1.56,.64,1);' : shaking ? 'background: #FCECE6; border: 2px solid #B4533F; animation: mb-shake .4s;' : 'background: #FFFFFF; border: 2px solid #DCE3DD;'),
+        };
+      }),
+      count,
+      misses: s.misses,
+      missStyle: s.misses ? 'color: #974E3D;' : '',
+      hint: s.sel !== null ? 'Now tap or drop on its partner' : 'Drag from left to right, or tap both',
+      playingState: count < 4,
+      complete: count === 4,
+      score: Math.round(4 / (4 + s.misses) * 100),
+    };
+  }
+}
+</script>
+</body>
+</html>

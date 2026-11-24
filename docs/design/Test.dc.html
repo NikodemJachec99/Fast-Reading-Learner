@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Comprehension test</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes t-in{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes t-in2{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes t-pop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes t-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+@keyframes t-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 22px; right: 22px; top: 58px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <span style="font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #106350">TEST · QUESTION {{qn}} OF 3</span>
+      <a href="Today.dc.html" style="font-size: 14px; font-weight: 800; text-decoration: none; min-height: 44px; display: flex; align-items: center">Quit</a>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+      <sc-for list="{{segs}}" as="g" hint-placeholder-count="3"><span style="{{g}}"></span></sc-for>
+    </div>
+  </div>
+
+  <sc-if value="{{asking}}" hint-placeholder-val="{{ true }}">
+    <div style="{{panel}}">
+      <span style="{{typeStyle}}">{{type}}</span>
+      <h1 style="margin: 0 0 6px; font-size: 25px; line-height: 1.2; letter-spacing: -.03em; font-weight: 800">{{question}}</h1>
+      <sc-for list="{{opts}}" as="o" hint-placeholder-count="4">
+        <button type="button" onClick="{{o.pick}}" style="{{o.style}}"><span style="{{o.dot}}">{{o.letter}}</span><span style="flex: 1; text-align: left">{{o.text}}</span></button>
+      </sc-for>
+      <sc-if value="{{checked}}" hint-placeholder-val="{{ false }}">
+        <div style="{{fb}}"><div style="font-weight: 800; font-size: 15px">{{fbTitle}}</div><div style="font-size: 14px; line-height: 1.5; margin-top: 4px">{{why}}</div></div>
+      </sc-if>
+    </div>
+    <button type="button" onClick="{{action}}" style="{{actionStyle}}">{{actionLabel}}</button>
+  </sc-if>
+
+  <sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 22px; right: 22px; top: 150px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; animation: t-rise .4s cubic-bezier(.2,.8,.2,1) both">
+      <div style="font-size: 64px; font-weight: 800; letter-spacing: -.05em">{{score}}/3</div>
+      <div style="font-size: 18px; font-weight: 800">{{doneTitle}}</div>
+      <div style="font-size: 15px; line-height: 1.5; color: #4F655B">{{doneText}}</div>
+    </div>
+    <a href="{{resultHref}}" style="position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #163B34; color: #FFFFFF; font-size: 17px; font-weight: 800; text-decoration: none">See result</a>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: 0, pick: null, checked: false, answers: [] };
+  }
+  renderVals() {
+    const Q = [
+      { type: 'Cause → effect', tone: ['#FCECE6', '#974E3D'], question: 'Why was the new library important for the town?', opts: ['It was bigger than the town school.', 'It gave people more access to books.', 'It sold new books at lower prices.', 'It replaced lessons at school.'], correct: 1, why: 'Residents could finally borrow more books, and loans nearly doubled in a year.' },
+      { type: 'Detail', tone: ['#DCF0E5', '#106350'], question: 'What did the school start doing at the library?', opts: ['Selling textbooks there.', 'Holding lessons there.', 'Closing it on weekends.', 'Printing a newspaper.'], correct: 1, why: 'The last sentence says the school began teaching there.' },
+      { type: 'Main idea', tone: ['#EDE8FA', '#5B4691'], question: 'What is the text mainly about?', opts: ['How to build a library.', 'Why people stopped reading.', 'How a library changed life in a small town.', 'The history of printing.'], correct: 2, why: 'Every sentence describes what changed after the library opened.' },
+    ];
+    const s = this.state;
+    const done = s.q >= Q.length;
+    const score = s.answers.filter(Boolean).length;
+    const segs = Q.map((_, i) => {
+      const a = s.answers[i];
+      const bg = a === true ? '#16846C' : a === false ? '#E8B4A6' : i === s.q ? '#8ACFB2' : '#DCE3DD';
+      return 'height: 6px; border-radius: 99px; transition: background .3s; background: ' + bg + ';';
+    });
+    if (done) {
+      const pass = score >= 2;
+      return {
+        qn: 3, segs, asking: false, done: true, score,
+        doneTitle: pass ? 'Passed. Your speed counts.' : 'Not passed this time.',
+        doneText: pass ? 'You need 2 of 3 to pass. Your reading speed goes into your statistics.' : 'You need 2 of 3. Your speed is saved but not counted. A slower tempo usually helps.',
+        resultHref: pass ? 'ResultPass.dc.html' : 'ResultFail.dc.html',
+      };
+    }
+    const q = Q[s.q];
+    const ok = s.pick === q.correct;
+    const anim = s.q % 2 ? 't-in2' : 't-in';
+    const base = 'display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 10px 14px; border-radius: 16px; font-size: 15px; font-weight: 700; color: #163B34; cursor: pointer; transition: background .2s, border-color .2s; ';
+    const dotBase = 'width: 30px; height: 30px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; ';
+    return {
+      qn: s.q + 1, segs, asking: true, done: false,
+      panel: 'position: absolute; left: 22px; right: 22px; top: 132px; display: flex; flex-direction: column; gap: 10px; animation: ' + anim + ' .35s cubic-bezier(.2,.8,.2,1) both;',
+      type: q.type,
+      typeStyle: 'align-self: flex-start; font-size: 12px; font-weight: 800; padding: 5px 11px; border-radius: 99px; background: ' + q.tone[0] + '; color: ' + q.tone[1] + ';',
+      question: q.question,
+      opts: q.opts.map((text, k) => {
+        let bg = '#FFFFFF', bd = '#DCE3DD', dbg = '#F0F2EE', dfg = '#163B34', an = '';
+        if (s.checked && k === q.correct) { bg = '#DCF0E5'; bd = '#16846C'; dbg = '#16846C'; dfg = '#FFFFFF'; an = 'animation: t-pop .35s cubic-bezier(.34,1.56,.64,1);'; }
+        else if (s.checked && k === s.pick) { bg = '#FCECE6'; bd = '#B4533F'; dbg = '#B4533F'; dfg = '#FFFFFF'; an = 'animation: t-shake .35s;'; }
+        else if (!s.checked && k === s.pick) { bd = '#16846C'; dbg = '#16846C'; dfg = '#FFFFFF'; }
+        return {
+          text, letter: 'ABCD'[k],
+          style: base + 'background: ' + bg + '; border: 2px solid ' + bd + ';' + an,
+          dot: dotBase + 'background: ' + dbg + '; color: ' + dfg + ';',
+          pick: () => { if (!this.state.checked) this.setState({ pick: k }); },
+        };
+      }),
+      checked: s.checked,
+      fbTitle: ok ? 'Correct.' : 'Not quite.',
+      why: q.why,
+      fb: 'border-radius: 16px; padding: 14px 16px; animation: t-rise .3s both; background: ' + (ok ? '#DCF0E5' : '#FCECE6') + ';',
+      actionLabel: s.checked ? (s.q === Q.length - 1 ? 'Finish test' : 'Next question') : 'Check answer',
+      action: () => {
+        if (this.state.pick === null) return;
+        if (!this.state.checked) this.setState({ checked: true });
+        else this.setState({ q: this.state.q + 1, pick: null, checked: false, answers: [...this.state.answers, this.state.pick === q.correct] });
+      },
+      actionStyle: 'position: absolute; left: 22px; right: 22px; bottom: 34px; min-height: 56px; border-radius: 18px; border: 0; font-size: 17px; font-weight: 800; cursor: pointer; transition: background .2s, color .2s; ' +
+        (s.pick === null ? 'background: #E6ECE4; color: #8A9A92;' : s.checked ? 'background: #163B34; color: #FFFFFF;' : 'background: #16846C; color: #FFFFFF; box-shadow: 0 10px 22px rgba(22,132,108,.28);'),
+    };
+  }
+}
+</script>
+</body>
+</html>

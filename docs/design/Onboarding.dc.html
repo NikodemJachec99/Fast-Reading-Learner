@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+@keyframes fr-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fr-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes fr-bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fr-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes fr-spark{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+@keyframes fr-shine{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(420%) skewX(-18deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F7F5EE; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: -90px; top: -110px; width: 360px; height: 360px; border-radius: 50%; background: #DCF0E5"></div>
+  <div style="position: absolute; right: -70px; top: 120px; width: 200px; height: 200px; border-radius: 50%; background: #EDE8FA"></div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 58px; display: flex; justify-content: space-between; align-items: center">
+    <div style="display: flex; gap: 6px; padding: 10px 12px; border-radius: 99px; background: rgba(255,255,255,.58); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 8px 20px rgba(22,59,52,.12)" aria-label="Step 1 of 3">
+      <span style="width: 22px; height: 6px; border-radius: 99px; background: #16846C"></span><span style="width: 6px; height: 6px; border-radius: 99px; background: #C9D3CB"></span><span style="width: 6px; height: 6px; border-radius: 99px; background: #C9D3CB"></span>
+    </div>
+    <a href="Today.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 16px; border-radius: 99px; text-decoration: none; font-size: 15px; font-weight: 800; color: #163B34; background: rgba(255,255,255,.58); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 8px 20px rgba(22,59,52,.12)">Skip</a>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; top: 140px; display: flex; justify-content: center">
+    <div style="width: 220px; height: 220px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.8); box-shadow: inset 0 1px 0 #FFFFFF, 0 24px 48px rgba(22,59,52,.14); animation: fr-pop .7s cubic-bezier(.34,1.56,.64,1) both">
+      <dc-import name="PikoMark" mood="happy" size="150" hint-size="150px,164px"></dc-import>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 392px; display: flex; flex-direction: column; gap: 12px; animation: fr-rise .6s .15s cubic-bezier(.2,.8,.2,1) both">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.08; font-weight: 800; letter-spacing: -.035em">Hi, I'm Piko.<br>Let's read better.</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4F655B">Eight minutes a day. You train one skill, read a short new text and check what you understood.</p>
+    <div style="display: flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 800; margin-top: 4px">
+      <span style="padding: 7px 11px; border-radius: 10px; background: #DCF0E5; color: #106350">Exercise</span><span aria-hidden="true" style="color: #55695F">→</span>
+      <span style="padding: 7px 11px; border-radius: 10px; background: #EDE8FA; color: #5B4691">Text</span><span aria-hidden="true" style="color: #55695F">→</span>
+      <span style="padding: 7px 11px; border-radius: 10px; background: #FCECE6; color: #974E3D">Test</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 22px; right: 22px; top: 620px; display: flex; flex-direction: column; gap: 8px; animation: fr-rise .6s .25s cubic-bezier(.2,.8,.2,1) both">
+    <label for="name" style="font-size: 13px; font-weight: 800">What should Piko call you? <span style="color: #55695F; font-weight: 600">Optional</span></label>
+    <input id="name" type="text" placeholder="Your first name" style="min-height: 52px; box-sizing: border-box; border-radius: 16px; border: 1px solid #C9D3CB; background: #FFFFFF; padding: 0 16px; font-family: Manrope, sans-serif; font-size: 16px; font-weight: 600; color: #163B34">
+  </div>
+
+  <a href="Today.dc.html" style="position: absolute; left: 22px; right: 22px; bottom: 40px; min-height: 56px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 18px; text-decoration: none; font-size: 17px; font-weight: 800; color: #FFFFFF; border: 1px solid rgba(255,255,255,.35); background: linear-gradient(180deg, rgba(47,165,133,.94), rgba(22,132,108,.97)); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 12px 24px rgba(22,132,108,.32)">
+    <span style="position: absolute; top: 0; bottom: 0; left: 0; width: 60px; background: rgba(255,255,255,.22); animation: fr-shine 3.6s 1.2s ease-in-out infinite"></span>Continue
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

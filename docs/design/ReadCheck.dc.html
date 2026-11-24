@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Read and Check</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#106350}a:hover{color:#0F5E4D}
+button{font-family:inherit}
+@keyframes rc-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #FBFAF6; color: #163B34; font-family: Manrope, system-ui, sans-serif">
+  <div style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: #EDF1EC; z-index: 3"><span style="display: block; height: 3px; background: #16846C; width: {{pct}}%; transition: width .35s cubic-bezier(.2,.8,.2,1)"></span></div>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; display: flex; justify-content: space-between; align-items: center; z-index: 2">
+    <a href="Intro01Read.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 99px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border: 1px solid #DCE3DD"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#163B34" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+    <span style="{{timerStyle}}">{{time}}</span>
+    <button type="button" aria-label="Text size {{sizeName}}" onClick="{{cycleSize}}" style="width: 44px; height: 44px; border-radius: 99px; background: #FFFFFF; border: 1px solid #DCE3DD; font-family: Literata, Georgia, serif; font-size: 16px; font-weight: 600; color: #163B34; cursor: pointer">Aa</button>
+  </div>
+
+  <div ref="{{setScroller}}" onScroll="{{onScroll}}" style="position: absolute; left: 0; right: 0; top: 104px; bottom: 0; overflow-y: auto; padding: 8px 28px 150px; box-sizing: border-box">
+    <div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; color: #55695F; margin-bottom: 6px">READ &amp; CHECK · LEVEL 2</div>
+    <h1 style="margin: 0 0 18px; font-family: Literata, Georgia, serif; font-size: 28px; line-height: 1.2; font-weight: 600">The New Library</h1>
+    <div style="font-family: Literata, Georgia, serif; font-size: {{fs}}px; line-height: 1.75; color: {{ink}}; transition: font-size .3s cubic-bezier(.2,.8,.2,1), color .4s">
+      <p style="margin: 0 0 .9em">In the autumn of 1998, the small town of Brena opened its first public library in an old grain warehouse by the river. For years, the nearest one had been forty minutes away by bus, and most families owned only a handful of books.</p>
+      <p style="margin: 0 0 .9em">The building was not grand. The roof still showed its wooden beams, and the shelves were made by students from the local trade school. But the reading room had tall windows facing the water, and it stayed quiet even on market days.</p>
+      <p style="margin: 0 0 .9em">Residents could finally borrow more than they could afford to buy. Parents came with children after school, older readers came in the mornings, and a small corner was set aside for newspapers from nearby cities.</p>
+      <p style="margin: 0 0 .9em">Within a year, the number of loans had nearly doubled. The librarian, Ewa Marek, started an evening club where people read the same short novel and met to talk about it every second Thursday.</p>
+      <p style="margin: 0">When the school ran out of space, it began holding some lessons in the library. Today the warehouse is still a library, and the town calls the reading room by the river its living room.</p>
+    </div>
+  </div>
+
+  <sc-if value="{{ready}}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 22px 34px; background: linear-gradient(180deg, rgba(251,250,246,0), #FBFAF6 30%); display: flex; flex-direction: column; gap: 10px; animation: rc-in .4s both">
+      <div style="font-size: 13px; font-weight: 700; color: #55695F; text-align: center">245 words · read at your natural pace</div>
+      <button type="button" onClick="{{start}}" style="min-height: 56px; border-radius: 18px; border: 0; background: #16846C; color: #FFFFFF; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 22px rgba(22,132,108,.28)">Start reading</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{reading}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 22px 34px; background: linear-gradient(180deg, rgba(251,250,246,0), #FBFAF6 30%); animation: rc-in .4s both">
+      <a href="Test.dc.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 18px; background: #163B34; color: #FFFFFF; font-size: 17px; font-weight: 800; text-decoration: none">Finish reading</a>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { started: false, secs: 0, size: 1, pct: 0 };
+    this.scroller = null;
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const s = this.state;
+    const sizes = [17, 19, 21];
+    const names = ['small', 'medium', 'large'];
+    return {
+      fs: sizes[s.size],
+      sizeName: names[s.size],
+      ink: s.started ? '#163B34' : '#55695F',
+      pct: s.pct,
+      time: Math.floor(s.secs / 60) + ':' + String(s.secs % 60).padStart(2, '0'),
+      timerStyle: 'font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; color: #55695F; padding: 6px 12px; border-radius: 99px; background: #F0F3EF; transition: opacity .4s; opacity: ' + (s.started ? '1' : '0') + ';',
+      ready: !s.started,
+      reading: s.started,
+      setScroller: (el) => { this.scroller = el; },
+      onScroll: (e) => {
+        const el = e.currentTarget || e.target;
+        const max = el.scrollHeight - el.clientHeight;
+        this.setState({ pct: max > 0 ? Math.round(el.scrollTop / max * 100) : 100 });
+      },
+      cycleSize: () => this.setState({ size: (this.state.size + 1) % 3 }),
+      start: () => {
+        this.setState({ started: true, pct: 2 });
+        clearInterval(this.timer);
+        this.timer = setInterval(() => this.setState({ secs: this.state.secs + 1 }), 1000);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
