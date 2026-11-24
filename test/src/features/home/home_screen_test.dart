@@ -10,4 +10,16 @@ void main() {
     expect(find.text('Train your reading speed'), findsOneWidget);
     expect(find.byIcon(Icons.menu_book_outlined), findsOneWidget);
   });
+
+  testWidgets('Exercises opens from home', (tester) async {
+    await tester.pumpWidget(const FastReadingApp());
+
+    await tester.tap(find.widgetWithText(FilledButton, 'Exercises'));
+    await tester.pumpAndSettle();
+
+    expect(find.widgetWithText(AppBar, 'Exercises'), findsOneWidget);
+    await tester.tap(find.text('Read & Check'));
+    await tester.pumpAndSettle();
+    expect(find.text('Rounds are coming soon.'), findsOneWidget);
+  });
 }
