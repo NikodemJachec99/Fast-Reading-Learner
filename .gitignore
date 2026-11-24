@@ -49,3 +49,6 @@ app.*.map.json
 
 # FVM (Flutter Version Management)
 .fvm/
+
+# Local Supabase config (see config/supabase.example.json)
+config/supabase.json

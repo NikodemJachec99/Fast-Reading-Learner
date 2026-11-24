@@ -74,6 +74,9 @@ flutter test --coverage
 - Keep business logic out of widgets: put it in `lib/src/core/` (or in a
   feature's own non-widget classes) so it can be unit-tested.
 - Public classes and methods should have a short `///` doc comment.
+- State goes through Riverpod providers and data through repositories, as
+  decided in [ADR-0001](docs/adr/0001-state-management-and-storage.md).
+  Copy the pattern from `lib/src/features/settings/`.
 
 ## Architecture decisions
 

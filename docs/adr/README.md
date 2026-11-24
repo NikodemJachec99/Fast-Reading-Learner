@@ -33,4 +33,4 @@ old one as **Superseded by ADR-NNNN**.
 
 | ADR  | Title                                         | Status  |
 | ---- | --------------------------------------------- | ------- |
-| 0001 | State management and local storage (see #2)   | Pending |
+| 0001 | [State management and storage](0001-state-management-and-storage.md) | Accepted |
